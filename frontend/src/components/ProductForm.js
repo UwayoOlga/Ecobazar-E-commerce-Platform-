@@ -1,68 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const ProductForm = ({ fetchProducts }) => {
-  const [form, setForm] = useState({
-    name: '',
-    description: '',
-    price: '',
-    imageUrl: '',
-  });
+const ProductForm = ({ isEdit = false }) => {
+  const [formData, setFormData] = useState({ name: '', description: '', price: '' });
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (isEdit) {
+      axios.get(`http://localhost:8080/api/products/${id}`).then(response => {
+        setFormData(response.data);
+      });
+    }
+  }, [id, isEdit]);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:8080/api/products', {
-      ...form,
-      price: parseFloat(form.price),
-    });
-    setForm({ name: '', description: '', price: '', imageUrl: '' });
-    fetchProducts();
+    if (isEdit) {
+      await axios.put(`http://localhost:8080/api/products/${id}`, formData);
+    } else {
+      await axios.post('http://localhost:8080/api/products', formData);
+    }
+    navigate('/');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 bg-white rounded shadow space-y-4">
-      <input
-        type="text"
-        name="name"
-        value={form.name}
-        onChange={handleChange}
-        placeholder="Name"
-        className="border p-2 w-full"
-        required
-      />
-      <input
-        type="text"
-        name="description"
-        value={form.description}
-        onChange={handleChange}
-        placeholder="Description"
-        className="border p-2 w-full"
-        required
-      />
-      <input
-        type="number"
-        name="price"
-        value={form.price}
-        onChange={handleChange}
-        placeholder="Price"
-        className="border p-2 w-full"
-        required
-      />
-      <input
-        type="text"
-        name="imageUrl"
-        value={form.imageUrl}
-        onChange={handleChange}
-        placeholder="Image URL"
-        className="border p-2 w-full"
-        required
-      />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-        Add Product
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white shadow rounded">
+      <input name="name" placeholder="Name" value={formData.name} onChange={handleChange} className="w-full p-2 mb-2 border" />
+      <input name="description" placeholder="Description" value={formData.description} onChange={handleChange} className="w-full p-2 mb-2 border" />
+      <input name="price" placeholder="Price" value={formData.price} onChange={handleChange} className="w-full p-2 mb-2 border" />
+      <button type="submit" className="w-full bg-green-500 text-white p-2 rounded">
+        {isEdit ? 'Update Product' : 'Add Product'}
       </button>
     </form>
   );

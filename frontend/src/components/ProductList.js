@@ -1,32 +1,26 @@
-import axios from 'axios';
+ import { useEffect, useState } from 'react';
+ import axios from 'axios';
+ import ProductCard from '../components/ProductCard';
 
-const ProductList = ({ products, fetchProducts }) => {
-  const deleteProduct = async (id) => {
-    await axios.delete(`http://localhost:8080/api/products/${id}`);
-    fetchProducts();
-  };
+ const ProductList = () => {
+   const [products, setProducts] = useState([]);
 
-  return (
-    <div className="mt-6">
-      <h2 className="text-xl font-semibold mb-4">Products</h2>
-      <ul className="space-y-4">
-        {products.map((product) => (
-          <li key={product.id} className="p-4 bg-white rounded shadow">
-            <h3 className="text-lg font-bold">{product.name}</h3>
-            <p>{product.description}</p>
-            <p className="text-green-600 font-semibold">${product.price}</p>
-            <img src={product.imageUrl} alt={product.name} className="h-32 w-32 object-cover mt-2" />
-            <button
-              onClick={() => deleteProduct(product.id)}
-              className="mt-2 bg-red-500 text-white px-3 py-1 rounded"
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+   const fetchProducts = async () => {
+     const response = await axios.get('http://localhost:8080/api/products');
+     setProducts(response.data);
+   };
 
-export default ProductList;
+   useEffect(() => {
+     fetchProducts();
+   }, []);
+
+   return (
+     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+       {products.map(product => (
+         <ProductCard key={product.id} product={product} fetchProducts={fetchProducts} />
+       ))}
+     </div>
+   );
+ };
+
+ export default ProductList;
