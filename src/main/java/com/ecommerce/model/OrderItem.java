@@ -1,7 +1,5 @@
 package com.ecommerce.model;
 
-import java.util.Locale.Category;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,20 +13,18 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String description;
+    private int quantity;
     private double price;
-    private int quantityInStock;
-    private String imageUrl;
 
     @ManyToOne
-    private Category category;
+    private Product product;
 
-    // Getters and Setters
+    @ManyToOne
+    private Order order;
 }
 

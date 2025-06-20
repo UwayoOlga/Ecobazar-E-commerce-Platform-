@@ -1,12 +1,13 @@
 package com.ecommerce.model;
 
-import java.util.Locale.Category;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -15,20 +16,17 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class user {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String description;
-    private double price;
-    private int quantityInStock;
-    private String imageUrl;
+    private String fullName;
+    private String email;
+    private String password;
+    private String role; // CUSTOMER, ADMIN
 
-    @ManyToOne
-    private Category category;
-
-    // Getters and Setters
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
 }
 
