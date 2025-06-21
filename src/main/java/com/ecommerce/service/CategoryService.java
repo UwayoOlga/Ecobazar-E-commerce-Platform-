@@ -1,5 +1,8 @@
 package com.ecommerce.service;
 
+import com.ecommerce.dto.CategoryRequestDTO;
+import com.ecommerce.dto.CategoryResponseDTO;
+import com.ecommerce.exception.ResourceNotFoundException;
 import com.ecommerce.model.Category;
 import com.ecommerce.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -16,44 +19,45 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // Create a new category
-    public Category createCategory(Category category) {
-        return categoryRepository.save(category);
+    public CategoryResponseDTO createCategory(CategoryRequestDTO categoryRequestDTO) {
+        Category category = new Category();
+        category.setName(categoryRequestDTO.getName());
+        Category savedCategory = categoryRepository.save(category);
+        return mapToResponseDTO(savedCategory);
     }
 
-    // Get all categories
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryResponseDTO> getAllCategories() {
+        return categoryRepository.findAll().stream()
+                .map(this::mapToResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    // Get category by ID
-    public Optional<Category> getCategoryById(Long id) {
-        return categoryRepository.findById(id);
+    public CategoryResponseDTO getCategoryDtoById(Long id) {
+        Category category = getCategoryById(id);
+        return mapToResponseDTO(category);
     }
 
-    // Get category by name
-    public Optional<Category> getCategoryByName(String name) {
-        return categoryRepository.findByName(name);
+    public Category getCategoryById(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + id));
     }
 
-    // Update category
-    public Category updateCategory(Long id, Category categoryDetails) {
-        Optional<Category> category = categoryRepository.findById(id);
-        if (category.isPresent()) {
-            Category existingCategory = category.get();
-            existingCategory.setName(categoryDetails.getName());
-            return categoryRepository.save(existingCategory);
-        }
-        return null;
+    public CategoryResponseDTO updateCategory(Long id, CategoryRequestDTO categoryRequestDTO) {
+        Category category = getCategoryById(id);
+        category.setName(categoryRequestDTO.getName());
+        Category updatedCategory = categoryRepository.save(category);
+        return mapToResponseDTO(updatedCategory);
     }
 
-    // Delete category
     public void deleteCategory(Long id) {
-        categoryRepository.deleteById(id);
+        Category category = getCategoryById(id);
+        categoryRepository.delete(category);
     }
 
-    // Check if category exists by name
-    public boolean isCategoryExists(String name) {
-        return categoryRepository.findByName(name).isPresent();
+    private CategoryResponseDTO mapToResponseDTO(Category category) {
+        CategoryResponseDTO dto = new CategoryResponseDTO();
+        dto.setId(category.getId());
+        dto.setName(category.getName());
+        return dto;
     }
 } 

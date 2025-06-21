@@ -30,7 +30,7 @@ public class Order {
     private String status; // PENDING, SHIPPED, DELIVERED
 
     @ManyToOne
-    private user user;
+    private User user;
 
     @OneToMany(mappedBy = "order", cascade = { CascadeType.ALL })
     private List<OrderItem> items = new ArrayList<>();

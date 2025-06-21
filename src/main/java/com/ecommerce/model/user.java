@@ -11,19 +11,27 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 @Entity
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class user {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String fullName;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String password;
+
     private String role; // CUSTOMER, ADMIN
 
     @OneToMany(mappedBy = "user")
