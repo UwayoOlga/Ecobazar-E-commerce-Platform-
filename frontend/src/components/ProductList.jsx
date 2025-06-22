@@ -14,23 +14,24 @@ export default function ProductList() {
   const [editProduct, setEditProduct] = useState(null);
   const [formLoading, setFormLoading] = useState(false);
 
-  useEffect(() => {
-    async function fetchProducts() {
-      setLoading(true);
-      setError('');
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/products`, {
-          headers: token ? { Authorization: `Bearer ${token}` } : {},
-        });
-        if (!res.ok) throw new Error('Failed to fetch products');
-        const data = await res.json();
-        setProducts(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
+  const fetchProducts = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/products`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (!res.ok) throw new Error('Failed to fetch products');
+      const data = await res.json();
+      setProducts(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
     fetchProducts();
   }, [token]);
 

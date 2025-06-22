@@ -1,6 +1,6 @@
 import { toast } from 'react-hot-toast';
 
-export const API_BASE_URL = 'http://localhost:8080';   elsewhere
+export const API_BASE_URL = 'http://localhost:8080';
 
 export async function login(email, password) {
   const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
@@ -24,6 +24,4 @@ export async function register(fullName, email, password) {
     throw new Error('Registration failed');
   }
   return response.json();
-} 
-
-toast.success('Added to cart!');
+}

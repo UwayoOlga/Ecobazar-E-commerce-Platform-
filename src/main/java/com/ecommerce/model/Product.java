@@ -1,6 +1,6 @@
 package com.ecommerce.model;
 
-import java.util.Locale.Category;
+import com.ecommerce.model.Category;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
