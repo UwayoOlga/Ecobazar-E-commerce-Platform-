@@ -92,6 +92,17 @@ export default function ProductForm({ initialValues = {}, onSubmit, onCancel, lo
           onChange={handleChange}
           className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
+        <p className="text-xs text-gray-500 mt-1">Paste a direct image URL (e.g., from Unsplash or your server).</p>
+        {form.imageUrl && (
+          <div className="mt-2 flex justify-center">
+            <img
+              src={form.imageUrl}
+              alt="Preview"
+              className="h-32 w-auto object-contain border rounded shadow"
+              onError={e => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/150'; }}
+            />
+          </div>
+        )}
       </div>
       <div>
         <label className="block text-gray-700">Category ID *</label>

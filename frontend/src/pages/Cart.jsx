@@ -20,7 +20,7 @@ export default function Cart() {
   return (
     <div className="max-w-4xl mx-auto py-8">
       <h2 className="text-2xl font-bold mb-6">Your Cart</h2>
-      <div className="bg-white shadow rounded-lg">
+      <div className="bg-white shadow rounded-lg border border-gray-100">
         <ul className="divide-y divide-gray-200">
           {cart.map(item => (
             <li key={item.id} className="p-4 flex items-center justify-between">
@@ -28,7 +28,7 @@ export default function Cart() {
                 <img 
                   src={item.imageUrl || 'https://via.placeholder.com/100'} 
                   alt={item.name}
-                  className="h-16 w-16 object-cover rounded mr-4"
+                  className="h-16 w-16 object-cover rounded border shadow mr-4 bg-white"
                 />
                 <div>
                   <h3 className="font-semibold">{item.name}</h3>

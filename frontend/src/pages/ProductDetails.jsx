@@ -47,14 +47,14 @@ export default function ProductDetails() {
 
   return (
     <div className="max-w-3xl mx-auto py-10 px-4">
-      <div className="flex flex-col md:flex-row gap-8 bg-white rounded-lg shadow p-6">
+      <div className="flex flex-col md:flex-row gap-8 bg-white rounded-lg shadow p-6 border border-gray-100">
         <img
           src={product.imageUrl || 'https://via.placeholder.com/300x200'}
           alt={product.name}
-          className="w-full md:w-80 h-60 object-cover rounded"
+          className="w-full md:w-80 h-60 object-cover rounded-lg border shadow-md transition-transform duration-300 hover:scale-105 bg-white"
         />
         <div className="flex-1 flex flex-col">
-          <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
+          <h2 className="text-2xl font-bold mb-2 text-gray-800">{product.name}</h2>
           <p className="text-gray-500 mb-1">{product.categoryName}</p>
           <p className="font-bold text-blue-600 mb-2 text-lg">${product.price}</p>
           <p className="mb-4 text-gray-700">{product.description}</p>

@@ -4,6 +4,7 @@ import { useAuth } from '../AuthContext';
 import ProductForm from './ProductForm';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import ProductCard from './ProductCard';
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -107,32 +108,7 @@ export default function ProductList() {
       {error && <div className="text-center text-red-500">{error}</div>}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map(product => (
-          <div key={product.id} className="bg-white rounded-lg shadow p-4 flex flex-col">
-            <Link to={`/products/${product.id}`} className="hover:opacity-80">
-              <img
-                src={product.imageUrl || 'https://via.placeholder.com/200x150'}
-                alt={product.name}
-                className="h-40 w-full object-cover rounded mb-2"
-              />
-              <h3 className="text-lg font-semibold mb-1">{product.name}</h3>
-            </Link>
-            <p className="text-gray-500 mb-1">{product.categoryName}</p>
-            <p className="font-bold text-blue-600 mb-2">${product.price}</p>
-            <p className="text-sm text-gray-600 mb-2">{product.description}</p>
-            <p className="text-xs text-gray-400 mb-2">Stock: {product.quantityInStock}</p>
-            {user && user.role === 'ADMIN' && (
-              <div className="mt-auto flex gap-2">
-                <button
-                  className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition"
-                  onClick={() => handleEditClick(product)}
-                >Edit</button>
-                <button
-                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-                  onClick={() => handleDeleteClick(product.id)}
-                >Delete</button>
-              </div>
-            )}
-          </div>
+          <ProductCard key={product.id} product={product} fetchProducts={fetchProducts} />
         ))}
       </div>
       {user && user.role === 'ADMIN' && (

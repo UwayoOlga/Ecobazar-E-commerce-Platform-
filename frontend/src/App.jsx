@@ -16,10 +16,7 @@ import AdminOrders from './pages/AdminOrders';
 import AdminUsers from './pages/AdminUsers';
 import Profile from './pages/Profile';
 import { Toaster } from 'react-hot-toast';
-
-function Home() {
-  return <ProductList />;
-}
+import Home from './pages/Home';
 
 function AdminDashboard() {
   return (
