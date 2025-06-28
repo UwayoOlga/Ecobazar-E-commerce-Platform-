@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <h1>Page Navigation</h1>
+        <a th:href="@{/customer/register}"> Register Customer</a> <br/>
+        <a th:href="@{/customer/search/all}"> Customer List</a> <br/>
+    </div>
+    <div>
+        <span th:if="${message != null}">
+            <span th:text="${message}" style="color: green"></span>
+        </span>
+        <span th:if="${error != null}">
+            <span th:text="${error}" style="color: red"></span>
+        </span>
+    </div>
+    <h1>Customer Registration page</h1>
+    <div>
+        <form th:action="@{/customer/register}" th:object="${customer}" method="post">
+            <label>First Name: </label>
+            <input type="text" th:field="*{firstName}" required> <br/>
+            <label>Last Name: </label>
+            <input type="text" th:field="*{lastName}" required><br/>
+            <label>Email: </label>
+            <input type="email" th:field="*{email}" required><br/>
+            <label>Phone Number: </label>
+            <input type="text" th:field="*{phoneNumber}" required><br/>
+            <button type="submit" >Register</button>
+        </form>
+    </div>
+</body>
+</html>
