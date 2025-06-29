@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - MedPlatform</title>
+    <style>
+        body { background: #f8faff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; }
+        .contact-container { max-width: 500px; margin: 5% auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px #2563eb22; padding: 2.5rem 2rem; text-align: center; }
+        h2 { color: #2563eb; margin-bottom: 1.5rem; }
+        .input-group { margin-bottom: 1.1rem; text-align: left; }
+        label { display: block; margin-bottom: 0.3rem; color: #1e293b; font-weight: 500; }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1.5px solid #2563eb44;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #e0e7ff;
+            color: #1e293b;
+            outline: none;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+            border-color: #2563eb;
+        }
+        textarea { min-height: 100px; resize: vertical; }
+        .contact-btn { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .contact-btn:hover { background: #1e293b; }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <h2>Contact Us</h2>
+        <form th:action="@{/contact}" method="post">
+            <div class="input-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required />
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <div class="input-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <button class="contact-btn" type="submit">Send Message</button>
+        </form>
+    </div>
+</body>
+</html> 

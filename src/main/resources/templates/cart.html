@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart - MedPlatform</title>
+    <style>
+        body { background: #f8faff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; }
+        .cart-container { max-width: 800px; margin: 3rem auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px #2563eb22; padding: 2rem; }
+        .cart-title { color: #2563eb; font-size: 2rem; font-weight: bold; margin-bottom: 2rem; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+        th, td { padding: 1rem; text-align: left; }
+        th { color: #2563eb; font-size: 1.1rem; border-bottom: 2px solid #e0e7ff; }
+        td { border-bottom: 1px solid #e0e7ff; }
+        .cart-img { width: 60px; height: 60px; object-fit: contain; border-radius: 8px; background: #e0e7ff; }
+        .qty-controls { display: flex; align-items: center; gap: 0.5rem; }
+        .qty-btn { background: #2563eb; color: #fff; border: none; border-radius: 6px; width: 28px; height: 28px; font-size: 1.1rem; cursor: pointer; }
+        .qty-btn:hover { background: #1e293b; }
+        .cart-total { text-align: right; font-size: 1.2rem; color: #1e293b; font-weight: 600; margin-bottom: 1.5rem; }
+        .checkout-btn { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .checkout-btn:hover { background: #1e293b; }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <div class="cart-title">Your Cart</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example cart item, replace with th:each for dynamic data -->
+                <tr>
+                    <td><img src="/assets/images/painRelief.jpg" alt="Pain Relief" class="cart-img" /> Pain Relief</td>
+                    <td>$5.99</td>
+                    <td>
+                        <div class="qty-controls">
+                            <button class="qty-btn">-</button>
+                            <span>2</span>
+                            <button class="qty-btn">+</button>
+                        </div>
+                    </td>
+                    <td>$11.98</td>
+                </tr>
+                <!-- Add more cart items as needed -->
+            </tbody>
+        </table>
+        <div class="cart-total">Total: $11.98</div>
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Details - MedPlatform</title>
+    <style>
+        body { background: #f8faff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; }
+        .detail-container { max-width: 700px; margin: 3rem auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px #2563eb22; padding: 2rem; display: flex; gap: 2rem; align-items: flex-start; }
+        .detail-img { width: 220px; height: 220px; object-fit: contain; border-radius: 16px; background: #e0e7ff; }
+        .detail-info { flex: 1; }
+        .detail-name { color: #2563eb; font-size: 2rem; font-weight: bold; margin-bottom: 0.7rem; }
+        .detail-desc { color: #64748b; font-size: 1.1rem; margin-bottom: 1.2rem; }
+        .detail-price { color: #1e293b; font-size: 1.3rem; font-weight: 600; margin-bottom: 1.2rem; }
+        .add-cart-btn { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .add-cart-btn:hover { background: #1e293b; }
+    </style>
+</head>
+<body>
+    <div class="detail-container">
+        <img th:src="@{${product.imageUrl}}" th:alt="${product.productName}" class="detail-img" />
+        <div class="detail-info">
+            <div class="detail-name" th:text="${product.productName}"></div>
+            <div class="detail-desc" th:text="${product.description}"></div>
+            <div class="detail-price" th:text="'$', ${product.price}"></div>
+            <button class="add-cart-btn">Add to Cart</button>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Prescription - MedPlatform</title>
+    <style>
+        body { background: #f8faff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; }
+        .upload-container { max-width: 500px; margin: 5% auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 24px #2563eb22; padding: 2.5rem 2rem; text-align: center; }
+        h2 { color: #2563eb; margin-bottom: 1.5rem; }
+        .instructions { color: #64748b; font-size: 1rem; margin-bottom: 1.5rem; }
+        input[type="file"] { margin-bottom: 1.2rem; }
+        .upload-btn { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 0.8rem 2rem; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .upload-btn:hover { background: #1e293b; }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h2>Upload Your Prescription</h2>
+        <div class="instructions">
+            Please upload a clear image or PDF of your prescription. Our pharmacists will review and process your order securely.
+        </div>
+        <form th:action="@{/uploadPrescription}" method="post" enctype="multipart/form-data">
+            <input type="file" name="prescription" accept="image/*,application/pdf" required />
+            <br />
+            <button class="upload-btn" type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html> 
