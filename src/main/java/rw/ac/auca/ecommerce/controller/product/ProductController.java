@@ -9,12 +9,7 @@ import rw.ac.auca.ecommerce.core.util.product.EStockState;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * The class ProductController.
- *
- * @author Jeremie Ukundwa Tuyisenge
- * @version 1.0
- */
+ 
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor

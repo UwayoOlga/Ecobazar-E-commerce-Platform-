@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="detail-container">
-        <img th:src="@{${product.imageUrl}}" th:alt="${product.productName}" class="detail-img" />
+        <img th:src="@{/assets/images/${product.imageUrl}}" th:alt="${product.productName}" class="detail-img" />
         <div class="detail-info">
             <div class="detail-name" th:text="${product.productName}"></div>
             <div class="detail-desc" th:text="${product.description}"></div>
