@@ -63,6 +63,16 @@
         .footer-links { margin-bottom: 0.5rem; }
         .footer-links a { color: #e0e7ff; margin: 0 1rem; text-decoration: none; }
         .footer-logo { font-weight: bold; color: #2563eb; }
+        /* Add this to ensure slideshow images are the same size and transitions are smooth */
+        #slideshow {
+            width: 180px; /* or your preferred size */
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: opacity 0.7s ease-in-out;
+            opacity: 1;
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -70,7 +80,7 @@
     <header>
         <div class="logo">
             <img src="/assets/images/Logo (2).png" alt="MedPlatform Logo" />
-            MedPlatform
+            MediFy
         </div>
         <nav>
             <a href="#">Home</a>
@@ -127,11 +137,10 @@
         <div class="trust-title">Why Choose Us</div>
         <div class="trust-icons">
             <div class="trust-item">
-                <img src="/assets/images/certifiedphamacicies.jpg" alt="Certified Pharmacies" class="trust-icon" />
+                <img id="slideshow" src="/assets/images/Online stock.jpg" alt="Certified Pharmacies" class="trust-icon" />
                 Certified Pharmacies
             </div>
-            <!-- You can add more trust icons here if you upload more images -->
-        </div>
+         </div>
     </section>
 
     <!-- Testimonials -->
@@ -165,8 +174,26 @@
         </div>
         <div class="footer-logo">
             <img src="/assets/images/Logo (2).png" alt="MedPlatform" style="width:24px;height:24px;margin-right:8px;vertical-align:middle;" />
-            MedPlatform
+            MediFy
         </div>
     </footer>
+
+    <script>
+        const images = [
+            '/assets/images/Online stock.jpg',
+            '/assets/images/typing happy black women.jpg',
+            '/assets/images/a Pharmacist.jpg'
+        ];
+        let current = 0;
+        const slideshow = document.getElementById('slideshow');
+        setInterval(() => {
+            slideshow.style.opacity = 0;
+            setTimeout(() => {
+                current = (current + 1) % images.length;
+                slideshow.src = images[current];
+                slideshow.style.opacity = 1;
+            }, 700); // matches the transition duration
+        }, 2500);
+    </script>
 </body>
 </html> 
