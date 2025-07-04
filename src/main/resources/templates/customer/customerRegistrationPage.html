@@ -20,7 +20,7 @@
     </div>
     <h1>Customer Registration page</h1>
     <div>
-        <form th:action="@{/customer/register}" th:object="${customer}" method="post">
+        <form th:action="@{/customer/register}" th:object="${customerRegistrationDto}" method="post">
             <label>First Name: </label>
             <input type="text" th:field="*{firstName}" required> <br/>
             <label>Last Name: </label>
@@ -30,9 +30,10 @@
             <label>Phone Number: </label>
             <input type="text" th:field="*{phoneNumber}" required><br/>
             <label>Password: </label>
-            <input type="password" name="password" required><br/>
+            <input type="password" th:field="*{password}" required><br/>
             <label>Confirm Password: </label>
-            <input type="password" name="confirmPassword" required><br/>
+            <input type="password" th:field="*{confirmPassword}" required><br/>
+            <div th:if="${error}" style="color:red; margin-bottom:10px;">[[${error}]]</div>
             <button type="submit" >Register</button>
         </form>
     </div>

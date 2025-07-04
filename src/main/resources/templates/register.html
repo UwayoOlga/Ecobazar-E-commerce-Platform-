@@ -7,56 +7,72 @@
         body { background: #f8faff; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; }
         .register-container {
             background: #fff;
-            max-width: 420px;
-            margin: 4% auto;
-            padding: 2.5rem 2rem 2rem 2rem;
-            border-radius: 18px;
-            box-shadow: 0 4px 24px #2563eb22;
+            max-width: 350px;
+            margin: 3% auto;
+            padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #2563eb22;
             text-align: center;
         }
         .register-logo {
-            margin-top: 1px;
-            width: 48px;
-            height: 48px;
-            margin-bottom: 1px;
+            width: 40px;
+            height: 40px;
+            margin-bottom: 0.5rem;
         }
-        h2 { color: #2563eb; margin-bottom: 1.5rem; }
-        .input-group { margin-bottom: 1.1rem; text-align: left; }
-        label { display: block; margin-bottom: 0.3rem; color: #1e293b; font-weight: 500; }
-        input[type="text"], input[type="email"] {
+        h2 { color: #2563eb; margin-bottom: 1.2rem; font-size: 1.3rem; }
+        .input-group {
+            margin-bottom: 0.8rem;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.2rem;
+            color: #1e293b;
+            font-weight: 500;
+            font-size: 0.98rem;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
             width: 100%;
-            padding: 0.7rem;
-            border: 1.5px solid #2563eb44;
-            border-radius: 8px;
-            font-size: 1rem;
+            padding: 0.5rem 0.7rem;
+            border: 1.2px solid #2563eb44;
+            border-radius: 7px;
+            font-size: 0.98rem;
             background: #e0e7ff;
             color: #1e293b;
             outline: none;
+            box-sizing: border-box;
         }
-        input[type="text"]:focus, input[type="email"]:focus {
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
             border-color: #2563eb;
         }
         .register-btn {
             width: 100%;
-            background: linear-gradient(90deg, #2563eb 60%, #1e293b 100%);
+            background: #2563eb;
             color: #fff;
             border: none;
-            border-radius: 8px;
-            padding: 0.9rem;
-            font-size: 1.1rem;
+            border-radius: 7px;
+            padding: 0.7rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 0.5rem;
+            margin-top: 0.3rem;
             transition: background 0.2s;
-            box-shadow: 0 2px 8px #2563eb22;
+            box-shadow: 0 1px 4px #2563eb22;
         }
         .register-btn:hover { background: #1e293b; }
-        .login-link { margin-top: 1.2rem; color: #1e293b; font-size: 0.98rem; }
+        .login-link { margin-top: 1rem; color: #1e293b; font-size: 0.95rem; }
         .login-link a { color: #2563eb; text-decoration: none; font-weight: 500; }
         .login-link a:hover { text-decoration: underline; }
-        .input-row { display: flex; gap: 1rem; }
-        @media (max-width: 600px) {
-            .input-row { flex-direction: column; gap: 0; }
+        @media (max-width: 400px) {
+            .register-container { max-width: 98vw; padding: 0.7rem; }
+        }
+        .input-row {
+            display: flex;
+            gap: 0.7rem;
+        }
+        .input-row .input-group {
+            flex: 1;
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -64,33 +80,34 @@
     <div class="register-container">
         <img src="/assets/images/Logo (2).png" alt="MediFy Logo" class="register-logo" />
         <h2>Create Your MediFy Account</h2>
-        <form th:action="@{/register}" method="post">
+        <form th:action="@{/register}" th:object="${customerRegistrationDto}" method="post">
             <div class="input-row">
-                <div class="input-group" style="flex:1;">
+                <div class="input-group">
                     <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
+                    <input type="text" id="firstName" th:field="*{firstName}" placeholder="First Name" required />
                 </div>
-                <div class="input-group" style="flex:1;">
+                <div class="input-group">
                     <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+                    <input type="text" id="lastName" th:field="*{lastName}" placeholder="Last Name" required />
                 </div>
             </div>
             <div class="input-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Email" required />
+                <input type="email" id="email" th:field="*{email}" placeholder="Email" required />
             </div>
             <div class="input-group">
                 <label for="phoneNumber">Phone Number</label>
-                <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required />
+                <input type="text" id="phoneNumber" th:field="*{phoneNumber}" placeholder="Phone Number" required />
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Password" required />
+                <input type="password" id="password" th:field="*{password}" placeholder="Password" required />
             </div>
             <div class="input-group">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required />
+                <input type="password" id="confirmPassword" th:field="*{confirmPassword}" placeholder="Confirm Password" required />
             </div>
+            <div th:if="${error}" style="color:red; margin-bottom:10px;">[[${error}]]</div>
             <button class="register-btn" type="submit">Register</button>
         </form>
         <div class="login-link">

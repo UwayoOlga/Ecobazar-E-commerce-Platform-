@@ -8,6 +8,7 @@ import rw.ac.auca.ecommerce.core.product.model.Product;
 import rw.ac.auca.ecommerce.core.product.service.IProductService;
 import rw.ac.auca.ecommerce.core.customer.model.Customer;
 import rw.ac.auca.ecommerce.core.customer.service.ICustomerService;
+import rw.ac.auca.ecommerce.core.customer.model.CustomerRegistrationDto;
 import java.util.UUID;
 
 @Controller
@@ -31,29 +32,22 @@ public class CatalogController {
 
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
-        model.addAttribute("customer", new Customer());
+        model.addAttribute("customerRegistrationDto", new CustomerRegistrationDto());
         return "register";
     }
 
     @PostMapping("/register")
-    public String processRegistration(@RequestParam("firstName") String firstName,
-                                      @RequestParam("lastName") String lastName,
-                                      @RequestParam("email") String email,
-                                      @RequestParam("phoneNumber") String phoneNumber,
-                                      @RequestParam("password") String password,
-                                      @RequestParam("confirmPassword") String confirmPassword,
-                                      Model model) {
-        if (!password.equals(confirmPassword)) {
+    public String processRegistration(@ModelAttribute("customerRegistrationDto") CustomerRegistrationDto registrationDto, Model model) {
+        if (!registrationDto.getPassword().equals(registrationDto.getConfirmPassword())) {
             model.addAttribute("error", "Passwords do not match");
-            model.addAttribute("customer", new Customer());
             return "register";
         }
         Customer customer = new Customer();
-        customer.setFirstName(firstName);
-        customer.setLastName(lastName);
-        customer.setEmail(email);
-        customer.setPhoneNumber(phoneNumber);
-        customer.setPassword(password);
+        customer.setFirstName(registrationDto.getFirstName());
+        customer.setLastName(registrationDto.getLastName());
+        customer.setEmail(registrationDto.getEmail());
+        customer.setPhoneNumber(registrationDto.getPhoneNumber());
+        customer.setPassword(registrationDto.getPassword());
         customerService.registerCustomer(customer);
         return "redirect:/login";
     }
