@@ -2,6 +2,9 @@ package rw.ac.auca.ecommerce.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 
 @Controller
 public class HomeController {
@@ -14,5 +17,12 @@ public class HomeController {
     @GetMapping("/home")
     public String homePage() {
         return "home";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        model.addAttribute("userEmail", userDetails.getUsername());
+        // In a real app, load more user info from the database here
+        return "dashboard";
     }
 } 

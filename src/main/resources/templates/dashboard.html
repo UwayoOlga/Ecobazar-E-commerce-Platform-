@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --dark-blue: #052964;
+            --mid-blue: #2563eb;
+            --light-blue: #e0e7ff;
+            --white: #fff;
+            --gray: #f3f6fa;
+            --accent-green: #2ecc71;
+            --accent-yellow: #f7c948;
+            --accent-red: #ff5a5f;
+            --accent-orange: #ff7f50;
+            --shadow: 0 4px 24px #2563eb22;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: var(--gray);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        .layout {
+            display: flex;
+            height: 100vh;
+        }
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, var(--dark-blue) 80%, var(--mid-blue) 100%);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            padding: 1.7rem 1rem 1rem 1rem;
+            box-shadow: 2px 0 12px #05296411;
+        }
+        .sidebar-logo {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 1.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .sidebar-logo img {
+            width: 32px;
+            height: 32px;
+        }
+        .sidebar-section {
+            margin-bottom: 1.2rem;
+        }
+        .sidebar-section-title {
+            font-size: 1rem;
+            color: #b3c6e0;
+            margin-bottom: 0.5rem;
+            margin-left: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            color: var(--light-blue);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.08rem;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+        .sidebar-link.active, .sidebar-link:hover {
+            background: var(--white);
+            color: var(--mid-blue);
+        }
+        .sidebar-user-card {
+            margin-top: auto;
+            background: var(--white);
+            color: var(--dark-blue);
+            border-radius: 12px;
+            padding: 1rem 1rem 0.7rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 2px 8px #05296411;
+        }
+        .sidebar-user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--light-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--mid-blue);
+        }
+        .sidebar-user-info {
+            color: var(--dark-blue);
+            font-size: 1rem;
+        }
+        .sidebar-user-role {
+            font-size: 0.92em;
+            opacity: 0.7;
+        }
+        /* Main content */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            background: var(--gray);
+        }
+        .topbar {
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 2rem 1.1rem 2rem;
+            box-shadow: 0 2px 8px #05296411;
+        }
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .search-bar {
+            background: var(--light-blue);
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.2rem;
+            font-size: 1.05rem;
+            color: var(--dark-blue);
+            width: 200px;
+            margin-right: 1.2rem;
+        }
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .topbar-action-btn {
+            background: var(--light-blue);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--mid-blue);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .topbar-action-btn:hover {
+            background: var(--mid-blue);
+            color: var(--white);
+        }
+        .logout-btn {
+            background: var(--accent-orange);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .logout-btn:hover {
+            background: var(--accent-red);
+        }
+        .main-content {
+            padding: 2rem 2rem 1.5rem 2rem;
+            flex: 1;
+            height: calc(100vh - 90px);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            gap: 1.5rem;
+        }
+        .main-left {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .main-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        /* Stat Cards */
+        .card-row {
+            display: flex;
+            gap: 1.1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.1rem;
+        }
+        .stat-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #2563eb11;
+            padding: 1.1rem 1.3rem;
+            min-width: 130px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: box-shadow 0.2s, transform 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+        .stat-card:hover {
+            box-shadow: 0 6px 24px #05296433;
+            transform: translateY(-2px) scale(1.02);
+        }
+        .stat-title {
+            color: var(--mid-blue);
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--dark-blue);
+        }
+        .stat-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.3rem;
+            opacity: 0.18;
+        }
+        .stat-orders { color: var(--mid-blue); }
+        .stat-prescriptions { color: var(--accent-green); }
+        .stat-cart { color: var(--accent-yellow); }
+        .stat-history { color: var(--accent-red); }
+        /* Chart & Cards */
+        .summary-card, .last-order-card, .payments-card, .expense-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #2563eb11;
+            padding: 1.2rem 1.2rem 1rem 1.2rem;
+        }
+        .summary-card h3, .last-order-card h3, .payments-card h3, .expense-card h3 {
+            color: var(--dark-blue);
+            margin-bottom: 0.7rem;
+            font-size: 1.08rem;
+        }
+        .summary-chart-container {
+            width: 100%;
+            height: 180px;
+            margin-bottom: 0.7rem;
+        }
+        /* Table */
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.4rem;
+        }
+        .order-table th, .order-table td {
+            padding: 0.5rem 0.8rem;
+            text-align: left;
+            font-size: 1rem;
+        }
+        .order-table th {
+            background: var(--light-blue);
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+        .order-table tr {
+            background: var(--white);
+            border-bottom: 1px solid #e0e7ff;
+        }
+        .order-table tr:last-child {
+            border-bottom: none;
+        }
+        .order-table td.price {
+            color: var(--accent-red);
+            font-weight: 600;
+        }
+        .order-table td.product {
+            color: var(--mid-blue);
+        }
+        /* Payments & Expense */
+        .payments-list, .expense-status-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .payments-list li, .expense-status-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.7rem;
+            font-size: 1rem;
+        }
+        .payments-list .amount {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+        .expense-status-list .on-track {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-content { flex-direction: column; gap: 1rem; }
+            .main-left, .main-right { width: 100%; }
+        }
+        @media (max-width: 900px) {
+            .layout { flex-direction: column; }
+            .sidebar { flex-direction: row; width: 100vw; height: auto; padding: 1rem; }
+            .main-content { padding: 1rem; }
+            .topbar { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="/assets/images/Logo (2).png" alt="Logo" />
+            MediFy
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Menu</div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-link active"><i class="fas fa-home"></i> Dashboard</div>
+                <div class="sidebar-link"><i class="fas fa-box"></i> Orders</div>
+                <div class="sidebar-link"><i class="fas fa-file-medical"></i> Prescriptions</div>
+                <div class="sidebar-link"><i class="fas fa-shopping-cart"></i> Cart</div>
+            </nav>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Management</div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-link"><i class="fas fa-user-cog"></i> Profile</div>
+                <div class="sidebar-link"><i class="fas fa-map-marker-alt"></i> Addresses</div>
+                <div class="sidebar-link"><i class="fas fa-credit-card"></i> Payment</div>
+            </nav>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-section-title">Notifications</div>
+            <nav class="sidebar-nav">
+                <div class="sidebar-link"><i class="fas fa-bell"></i> Alerts</div>
+                <div class="sidebar-link"><i class="fas fa-envelope"></i> Messages</div>
+            </nav>
+        </div>
+        <div class="sidebar-user-card">
+            <div class="sidebar-user-avatar"><i class="fas fa-user"></i></div>
+            <div>
+                <div class="sidebar-user-info" th:text="${userEmail}"></div>
+                <div class="sidebar-user-role">Customer</div>
+            </div>
+        </div>
+    </aside>
+    <!-- Main -->
+    <main class="main">
+        <!-- Topbar -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <input class="search-bar" type="text" placeholder="Search orders, prescriptions..." />
+            </div>
+            <div class="topbar-actions">
+                <button class="topbar-action-btn"><i class="fas fa-moon"></i></button>
+                <button class="topbar-action-btn"><i class="fas fa-bell"></i></button>
+                <a href="/logout" class="logout-btn">Log Out</a>
+            </div>
+        </div>
+        <!-- Main Content: Two Columns -->
+        <div class="main-content">
+            <div class="main-left">
+                <!-- Wrap dashboard content in a tab-content div -->
+                <div class="tab-content active" id="tab-dashboard">
+                    <div class="card-row">
+                        <div class="stat-card stat-orders">
+                            <div class="stat-title">Orders</div>
+                            <div class="stat-value">12</div>
+                            <i class="fas fa-box stat-icon"></i>
+                        </div>
+                        <div class="stat-card stat-prescriptions">
+                            <div class="stat-title">Prescriptions</div>
+                            <div class="stat-value">5</div>
+                            <i class="fas fa-file-medical stat-icon"></i>
+                        </div>
+                        <div class="stat-card stat-cart">
+                            <div class="stat-title">Cart</div>
+                            <div class="stat-value">3</div>
+                            <i class="fas fa-shopping-cart stat-icon"></i>
+                        </div>
+                        <div class="stat-card stat-history">
+                            <div class="stat-title">Order History</div>
+                            <div class="stat-value">8</div>
+                            <i class="fas fa-history stat-icon"></i>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Order & Prescription Activity</h3>
+                        <div class="summary-chart-container">
+                            <canvas id="summaryChart" width="400" height="120"></canvas>
+                        </div>
+                    </div>
+                    <div class="last-order-card">
+                        <h3>Last Order</h3>
+                        <table class="order-table">
+                            <thead>
+                            <tr><th>Customer</th><th>Date</th><th>Price</th><th>Product</th></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><img src="/assets/images/Logo (2).png" alt="avatar" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:4px;"> Paula Walker</td>
+                                <td>2024-07-04</td>
+                                <td class="price">$1476.00</td>
+                                <td class="product">Medicine A</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-content" id="tab-prescriptions" style="display:none;">
+                    <div class="summary-card">
+                        <h3>Prescription Management</h3>
+                        <form id="prescriptionUploadForm" enctype="multipart/form-data" style="margin-bottom:1.2rem;display:flex;gap:1rem;align-items:center;">
+                            <input type="file" id="prescriptionFile" accept=".jpg,.jpeg,.png,.pdf" required style="padding:0.4rem 0.7rem;" />
+                            <input type="text" id="doctorName" placeholder="Doctor's Name (optional)" style="padding:0.4rem 0.7rem;" />
+                            <button type="submit" style="background:var(--mid-blue);color:var(--white);border:none;border-radius:7px;padding:0.6rem 1.2rem;font-weight:600;cursor:pointer;">Upload Prescription</button>
+                        </form>
+                        <table class="order-table" id="prescriptionTable">
+                            <thead>
+                                <tr>
+                                    <th>File</th>
+                                    <th>Date Uploaded</th>
+                                    <th>Doctor</th>
+                                    <th>Status</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Prescription rows will be inserted here by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="main-right">
+                <div class="summary-card" style="background:var(--accent-orange);color:var(--white);">
+                    <h3 style="color:var(--white);">$9,470</h3>
+                    <div>Active Balance</div>
+                    <ul style="list-style:none;padding:0;margin:0.7rem 0 0 0;">
+                        <li>Incomes <span style="float:right;">$1699.0</span></li>
+                        <li>Expenses <span style="float:right;">$-799.0</span></li>
+                        <li>Taxes <span style="float:right;">$-199.0</span></li>
+                    </ul>
+                    <button style="margin-top:0.7rem;background:var(--white);color:var(--accent-orange);border:none;border-radius:8px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Add Virtual Card</button>
+                </div>
+                <div class="payments-card">
+                    <h3>Upcoming Payments</h3>
+                    <ul class="payments-list">
+                        <li>Easy Pay Way. <span class="amount">$82258.23</span></li>
+                        <li>Payonner. <span class="amount">$61486.69</span></li>
+                        <li>FastSpring. <span class="amount">$4210.38</span></li>
+                    </ul>
+                </div>
+                <div class="expense-card">
+                    <h3>Expenses Status <span class="on-track">On Track</span></h3>
+                    <ul class="expense-status-list">
+                        <li>Order 1 <span class="on-track">$120.00</span></li>
+                        <li>Order 2 <span class="on-track">$80.00</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+    // Chart.js dynamic bar chart with months
+    const ctx = document.getElementById('summaryChart').getContext('2d');
+    const summaryChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+                label: 'Orders',
+                data: [12, 19, 3, 5, 2, 3, 9],
+                backgroundColor: [
+                    'rgba(37,99,235,0.8)',
+                    'rgba(37,99,235,0.7)',
+                    'rgba(46,204,113,0.7)',
+                    'rgba(247,201,72,0.7)',
+                    'rgba(255,90,95,0.7)',
+                    'rgba(255,127,80,0.7)',
+                    'rgba(37,99,235,0.8)'
+                ],
+                borderRadius: 6,
+                barPercentage: 0.7,
+                categoryPercentage: 0.7
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#052964', font: { size: 11 } }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: { color: '#e0e7ff' },
+                    ticks: { color: '#052964', font: { size: 11 }, stepSize: 5 }
+                }
+            },
+            responsive: false,
+            maintainAspectRatio: false
+        }
+    });
+
+    // Tab switching logic for dashboard and prescriptions
+    const tabDashboard = document.getElementById('tab-dashboard');
+    const tabPrescriptions = document.getElementById('tab-prescriptions');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (this.textContent.includes('Prescriptions')) {
+                tabDashboard.classList.remove('active');
+                tabDashboard.style.display = 'none';
+                tabPrescriptions.classList.add('active');
+                tabPrescriptions.style.display = '';
+            } else if (this.textContent.includes('Dashboard')) {
+                tabDashboard.classList.add('active');
+                tabDashboard.style.display = '';
+                tabPrescriptions.classList.remove('active');
+                tabPrescriptions.style.display = 'none';
+            }
+        });
+    });
+
+    // Show dashboard by default, hide prescription tab
+    window.addEventListener('DOMContentLoaded', () => {
+        tabDashboard.classList.add('active');
+        tabDashboard.style.display = '';
+        tabPrescriptions.classList.remove('active');
+        tabPrescriptions.style.display = 'none';
+    });
+
+    // Prescription upload and table logic
+    const prescriptionTable = document.getElementById('prescriptionTable').querySelector('tbody');
+    const prescriptionUploadForm = document.getElementById('prescriptionUploadForm');
+    let prescriptions = [];
+
+    prescriptionUploadForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fileInput = document.getElementById('prescriptionFile');
+        const doctorInput = document.getElementById('doctorName');
+        const file = fileInput.files[0];
+        if (!file) return;
+        const now = new Date();
+        const dateStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+        const prescription = {
+            fileName: file.name,
+            fileUrl: URL.createObjectURL(file),
+            date: dateStr,
+            doctor: doctorInput.value,
+            status: 'Approved', // For now, always approved
+            statusColor: 'var(--accent-green)'
+        };
+        prescriptions.unshift(prescription);
+        renderPrescriptions();
+        fileInput.value = '';
+        doctorInput.value = '';
+    });
+
+    function renderPrescriptions() {
+        prescriptionTable.innerHTML = '';
+        prescriptions.forEach(p => {
+            prescriptionTable.innerHTML += `
+                <tr>
+                    <td>${p.fileName}</td>
+                    <td>${p.date}</td>
+                    <td>${p.doctor || '-'}</td>
+                    <td><span style="color:${p.statusColor};font-weight:600;">${p.status}</span></td>
+                    <td><a href="${p.fileUrl}" target="_blank" style="color:var(--mid-blue);font-weight:600;">View</a></td>
+                </tr>
+            `;
+        });
+    }
+</script>
+</body>
+</html> 

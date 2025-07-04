@@ -59,6 +59,7 @@
         <img src="/assets/images/Logo%20(2).png" alt="MedPlatform Logo" class="login-logo" />
         <h2>Login to MedPlatform</h2>
         <form th:action="@{/login}" method="post">
+            <div th:if="${param.error}" style="color:red; margin-bottom:10px;">Invalid email or password. Please try again.</div>
             <div class="input-group">
                 <label for="email">Email</label>
                 <input type="text" id="email" name="email" required />

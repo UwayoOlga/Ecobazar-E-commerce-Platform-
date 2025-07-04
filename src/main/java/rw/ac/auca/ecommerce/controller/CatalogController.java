@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import rw.ac.auca.ecommerce.core.product.model.Product;
 import rw.ac.auca.ecommerce.core.product.service.IProductService;
 import rw.ac.auca.ecommerce.core.customer.model.Customer;
 import rw.ac.auca.ecommerce.core.customer.service.ICustomerService;
