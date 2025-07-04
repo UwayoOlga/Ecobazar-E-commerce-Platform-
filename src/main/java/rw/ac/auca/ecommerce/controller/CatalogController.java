@@ -36,7 +36,24 @@ public class CatalogController {
     }
 
     @PostMapping("/register")
-    public String processRegistration(@ModelAttribute Customer customer) {
+    public String processRegistration(@RequestParam("firstName") String firstName,
+                                      @RequestParam("lastName") String lastName,
+                                      @RequestParam("email") String email,
+                                      @RequestParam("phoneNumber") String phoneNumber,
+                                      @RequestParam("password") String password,
+                                      @RequestParam("confirmPassword") String confirmPassword,
+                                      Model model) {
+        if (!password.equals(confirmPassword)) {
+            model.addAttribute("error", "Passwords do not match");
+            model.addAttribute("customer", new Customer());
+            return "register";
+        }
+        Customer customer = new Customer();
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
+        customer.setEmail(email);
+        customer.setPhoneNumber(phoneNumber);
+        customer.setPassword(password);
         customerService.registerCustomer(customer);
         return "redirect:/login";
     }
