@@ -27,7 +27,7 @@
             background: var(--gray);
             font-family: 'Segoe UI', Arial, sans-serif;
             min-height: 100vh;
-            overflow: hidden;
+            /* overflow: hidden; */
         }
         .layout {
             display: flex;
@@ -35,54 +35,54 @@
         }
         /* Sidebar */
         .sidebar {
-            width: 250px;
+            width: 200px;
             background: linear-gradient(180deg, var(--dark-blue) 80%, var(--mid-blue) 100%);
             color: var(--white);
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            padding: 1.7rem 1rem 1rem 1rem;
+            padding: 1.2rem 0.7rem 0.7rem 0.7rem;
             box-shadow: 2px 0 12px #05296411;
         }
         .sidebar-logo {
-            font-size: 1.3rem;
+            font-size: 1.05rem;
             font-weight: bold;
             color: #2563eb;
-            margin-bottom: 1.7rem;
+            margin-bottom: 1.1rem;
             display: flex;
             align-items: center;
-            gap: 0.7rem;
+            gap: 0.5rem;
         }
         .sidebar-logo img {
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
         }
         .sidebar-section {
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.8rem;
         }
         .sidebar-section-title {
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: #b3c6e0;
-            margin-bottom: 0.5rem;
-            margin-left: 0.5rem;
+            margin-bottom: 0.3rem;
+            margin-left: 0.3rem;
             font-weight: 600;
             letter-spacing: 0.04em;
         }
         .sidebar-nav {
             display: flex;
             flex-direction: column;
-            gap: 0.4rem;
+            gap: 0.25rem;
         }
         .sidebar-link {
             display: flex;
             align-items: center;
-            gap: 0.7rem;
-            padding: 0.8rem 1.2rem;
-            border-radius: 8px;
+            gap: 0.5rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
             color: var(--light-blue);
             text-decoration: none;
             font-weight: 500;
-            font-size: 1.08rem;
+            font-size: 0.9rem;
             transition: background 0.2s, color 0.2s;
             cursor: pointer;
         }
@@ -94,30 +94,30 @@
             margin-top: auto;
             background: var(--white);
             color: var(--dark-blue);
-            border-radius: 12px;
-            padding: 1rem 1rem 0.7rem 1rem;
+            border-radius: 8px;
+            padding: 0.7rem 0.7rem 0.5rem 0.7rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.5rem;
             box-shadow: 0 2px 8px #05296411;
         }
         .sidebar-user-avatar {
-            width: 38px;
-            height: 38px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             background: var(--light-blue);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--mid-blue);
         }
         .sidebar-user-info {
             color: var(--dark-blue);
-            font-size: 1rem;
+            font-size: 0.9rem;
         }
         .sidebar-user-role {
-            font-size: 0.92em;
+            font-size: 0.8em;
             opacity: 0.7;
         }
         /* Main content */
@@ -133,39 +133,39 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1.1rem 2rem 1.1rem 2rem;
+            padding: 0.7rem 1.2rem 0.7rem 1.2rem;
             box-shadow: 0 2px 8px #05296411;
         }
         .topbar-left {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 0.7rem;
         }
         .search-bar {
             background: var(--light-blue);
             border: none;
-            border-radius: 8px;
-            padding: 0.7rem 1.2rem;
-            font-size: 1.05rem;
+            border-radius: 6px;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.9rem;
             color: var(--dark-blue);
-            width: 200px;
-            margin-right: 1.2rem;
+            width: 140px;
+            margin-right: 0.7rem;
         }
         .topbar-actions {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 0.7rem;
         }
         .topbar-action-btn {
             background: var(--light-blue);
             border: none;
             border-radius: 50%;
-            width: 36px;
-            height: 36px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--mid-blue);
             cursor: pointer;
             transition: background 0.2s, color 0.2s;
@@ -178,9 +178,9 @@
             background: var(--accent-orange);
             color: var(--white);
             border: none;
-            border-radius: 8px;
-            padding: 0.7rem 1.5rem;
-            font-size: 1.05rem;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s;
@@ -189,39 +189,39 @@
             background: var(--accent-red);
         }
         .main-content {
-            padding: 2rem 2rem 1.5rem 2rem;
+            padding: 1.2rem 1.2rem 1rem 1.2rem;
             flex: 1;
-            height: calc(100vh - 90px);
-            overflow: hidden;
+            height: calc(100vh - 60px);
+            /* overflow: hidden; */
             position: relative;
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
         }
         .main-left {
             flex: 2;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;
         }
         .main-right {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;
         }
         /* Stat Cards */
         .card-row {
             display: flex;
-            gap: 1.1rem;
+            gap: 0.7rem;
             flex-wrap: wrap;
-            margin-bottom: 1.1rem;
+            margin-bottom: 0.7rem;
         }
         .stat-card {
             background: var(--white);
-            border-radius: 12px;
+            border-radius: 8px;
             box-shadow: 0 2px 12px #2563eb11;
-            padding: 1.1rem 1.3rem;
-            min-width: 130px;
+            padding: 0.7rem 0.9rem;
+            min-width: 90px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -236,20 +236,20 @@
         }
         .stat-title {
             color: var(--mid-blue);
-            font-size: 1.05rem;
+            font-size: 0.85rem;
             font-weight: 500;
             margin-bottom: 0.3rem;
         }
         .stat-value {
-            font-size: 1.3rem;
+            font-size: 1.05rem;
             font-weight: bold;
             color: var(--dark-blue);
         }
         .stat-icon {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.3rem;
+            top: 0.7rem;
+            right: 0.7rem;
+            font-size: 1rem;
             opacity: 0.18;
         }
         .stat-orders { color: var(--mid-blue); }
@@ -259,19 +259,24 @@
         /* Chart & Cards */
         .summary-card, .last-order-card, .payments-card, .expense-card {
             background: var(--white);
-            border-radius: 12px;
+            border-radius: 8px;
             box-shadow: 0 2px 12px #2563eb11;
-            padding: 1.2rem 1.2rem 1rem 1.2rem;
+            padding: 0.8rem 0.8rem 0.6rem 0.8rem;
+        }
+        .expense-card{
+            height: 110px;
+            padding-top: 1.2rem;
+            padding-bottom: 1.2rem;
         }
         .summary-card h3, .last-order-card h3, .payments-card h3, .expense-card h3 {
             color: var(--dark-blue);
-            margin-bottom: 0.7rem;
-            font-size: 1.08rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
         }
         .summary-chart-container {
             width: 100%;
-            height: 180px;
-            margin-bottom: 0.7rem;
+            height: 110px;
+            margin-bottom: 0.4rem;
         }
         /* Table */
         .order-table {
@@ -280,9 +285,9 @@
             margin-top: 0.4rem;
         }
         .order-table th, .order-table td {
-            padding: 0.5rem 0.8rem;
+            padding: 0.3rem 0.5rem;
             text-align: left;
-            font-size: 1rem;
+            font-size: 0.85rem;
         }
         .order-table th {
             background: var(--light-blue);
@@ -313,8 +318,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 0.7rem;
-            font-size: 1rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
         }
         .payments-list .amount {
             color: var(--accent-orange);
@@ -323,17 +328,18 @@
         .expense-status-list .on-track {
             color: var(--accent-green);
             font-weight: 600;
+            
         }
         /* Responsive */
         @media (max-width: 1200px) {
-            .main-content { flex-direction: column; gap: 1rem; }
+            .main-content { flex-direction: column; gap: 0.7rem; }
             .main-left, .main-right { width: 100%; }
         }
         @media (max-width: 900px) {
             .layout { flex-direction: column; }
-            .sidebar { flex-direction: row; width: 100vw; height: auto; padding: 1rem; }
-            .main-content { padding: 1rem; }
-            .topbar { padding: 1rem; }
+            .sidebar { flex-direction: row; width: 100vw; height: auto; padding: 0.7rem; }
+            .main-content { padding: 0.7rem; }
+            .topbar { padding: 0.7rem; }
         }
     </style>
 </head>
@@ -349,7 +355,7 @@
             <div class="sidebar-section-title">Menu</div>
             <nav class="sidebar-nav">
                 <div class="sidebar-link active"><i class="fas fa-home"></i> Dashboard</div>
-                <div class="sidebar-link"><i class="fas fa-box"></i> Orders</div>
+                <div class="sidebar-link" data-tab="orders"><i class="fas fa-box"></i> Orders</div>
                 <div class="sidebar-link"><i class="fas fa-file-medical"></i> Prescriptions</div>
                 <div class="sidebar-link"><i class="fas fa-shopping-cart"></i> Cart</div>
             </nav>
@@ -393,7 +399,7 @@
         <!-- Main Content: Two Columns -->
         <div class="main-content">
             <div class="main-left">
-                <!-- Wrap dashboard content in a tab-content div -->
+                <!-- Dashboard Tab -->
                 <div class="tab-content active" id="tab-dashboard">
                     <div class="card-row">
                         <div class="stat-card stat-orders">
@@ -436,66 +442,94 @@
                                 <td class="price">$1476.00</td>
                                 <td class="product">Medicine A</td>
                             </tr>
+                            <tr>
+                                <td><img src="/assets/images/Logo (2).png" alt="avatar" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:4px;"> John Smith</td>
+                                <td>2024-07-03</td>
+                                <td class="price">$980.00</td>
+                                <td class="product">Medicine B</td>
+                            </tr>
+                            <tr>
+                                <td><img src="/assets/images/Logo (2).png" alt="avatar" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:4px;"> Alice Brown</td>
+                                <td>2024-07-02</td>
+                                <td class="price">$520.00</td>
+                                <td class="product">Medicine C</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
+                    <div class="main-right">
+                        <div class="summary-card" style="background:var(--accent-orange);color:var(--white);">
+                            <h3 style="color:var(--white);">$9,470</h3>
+                            <div>Active Balance</div>
+                            <ul style="list-style:none;padding:0;margin:0.7rem 0 0 0;">
+                                <li>Incomes <span style="float:right;">$1699.0</span></li>
+                                <li>Expenses <span style="float:right;">$-799.0</span></li>
+                                <li>Taxes <span style="float:right;">$-199.0</span></li>
+                            </ul>
+                            <button style="margin-top:0.7rem;background:var(--white);color:var(--accent-orange);border:none;border-radius:8px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Add Virtual Card</button>
+                        </div>
+                        <div class="payments-card">
+                            <h3>Upcoming Payments</h3>
+                            <ul class="payments-list">
+                                <li>Easy Pay Way. <span class="amount">$82258.23</span></li>
+                                <li>Payonner. <span class="amount">$61486.69</span></li>
+                                <li>FastSpring. <span class="amount">$4210.38</span></li>
+                            </ul>
+                        </div>
+                        <div class="expense-card">
+                            <h3>Expenses Status <span class="on-track">On Track</span></h3>
+                            <ul class="expense-status-list">
+                                <li>Order 1 <span class="on-track">$120.00</span></li>
+                                <li>Order 2 <span class="on-track">$80.00</span></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="tab-content" id="tab-prescriptions" style="display:none;">
+                <!-- Orders Tab -->
+                <div class="tab-content" id="tab-orders" style="display:none;">
                     <div class="summary-card">
-                        <h3>Prescription Management</h3>
-                        <form id="prescriptionUploadForm" enctype="multipart/form-data" style="margin-bottom:1.2rem;display:flex;gap:1rem;align-items:center;">
-                            <input type="file" id="prescriptionFile" accept=".jpg,.jpeg,.png,.pdf" required style="padding:0.4rem 0.7rem;" />
-                            <input type="text" id="doctorName" placeholder="Doctor's Name (optional)" style="padding:0.4rem 0.7rem;" />
-                            <button type="submit" style="background:var(--mid-blue);color:var(--white);border:none;border-radius:7px;padding:0.6rem 1.2rem;font-weight:600;cursor:pointer;">Upload Prescription</button>
-                        </form>
-                        <table class="order-table" id="prescriptionTable">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <h3>Order History</h3>
+                            <input id="orderSearch" type="text" placeholder="Search orders..." style="padding:0.3rem 0.7rem;border-radius:6px;border:1px solid #e0e7ff;font-size:0.9rem;" />
+                        </div>
+                        <div style="margin:0.7rem 0 1rem 0;">
+                            <select id="orderStatusFilter" style="padding:0.3rem 0.7rem;border-radius:6px;border:1px solid #e0e7ff;font-size:0.9rem;">
+                                <option value="">All Statuses</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Canceled">Canceled</option>
+                                <option value="Awaiting Prescription">Awaiting Prescription</option>
+                            </select>
+                        </div>
+                        <table class="order-table" id="ordersTable">
                             <thead>
                                 <tr>
-                                    <th>File</th>
-                                    <th>Date Uploaded</th>
-                                    <th>Doctor</th>
+                                    <th>Order #</th>
+                                    <th>Date</th>
                                     <th>Status</th>
-                                    <th>View</th>
+                                    <th>Total</th>
+                                    <th>Payment</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Prescription rows will be inserted here by JS -->
+                                <!-- Orders will be rendered here by JS -->
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="main-right">
-                <div class="summary-card" style="background:var(--accent-orange);color:var(--white);">
-                    <h3 style="color:var(--white);">$9,470</h3>
-                    <div>Active Balance</div>
-                    <ul style="list-style:none;padding:0;margin:0.7rem 0 0 0;">
-                        <li>Incomes <span style="float:right;">$1699.0</span></li>
-                        <li>Expenses <span style="float:right;">$-799.0</span></li>
-                        <li>Taxes <span style="float:right;">$-199.0</span></li>
-                    </ul>
-                    <button style="margin-top:0.7rem;background:var(--white);color:var(--accent-orange);border:none;border-radius:8px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Add Virtual Card</button>
-                </div>
-                <div class="payments-card">
-                    <h3>Upcoming Payments</h3>
-                    <ul class="payments-list">
-                        <li>Easy Pay Way. <span class="amount">$82258.23</span></li>
-                        <li>Payonner. <span class="amount">$61486.69</span></li>
-                        <li>FastSpring. <span class="amount">$4210.38</span></li>
-                    </ul>
-                </div>
-                <div class="expense-card">
-                    <h3>Expenses Status <span class="on-track">On Track</span></h3>
-                    <ul class="expense-status-list">
-                        <li>Order 1 <span class="on-track">$120.00</span></li>
-                        <li>Order 2 <span class="on-track">$80.00</span></li>
-                    </ul>
+                <!-- Prescriptions Tab -->
+                <div class="tab-content" id="tab-prescriptions" style="display:none;">
+                    <!-- ...prescriptions content... -->
                 </div>
             </div>
         </div>
     </main>
 </div>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
     // Chart.js dynamic bar chart with months
     const ctx = document.getElementById('summaryChart').getContext('2d');
     const summaryChart = new Chart(ctx, {
@@ -539,9 +573,10 @@
         }
     });
 
-    // Tab switching logic for dashboard and prescriptions
+    // Tab switching logic for dashboard, prescriptions, and orders
     const tabDashboard = document.getElementById('tab-dashboard');
     const tabPrescriptions = document.getElementById('tab-prescriptions');
+    const tabOrders = document.getElementById('tab-orders');
     const sidebarLinks = document.querySelectorAll('.sidebar-link');
 
     sidebarLinks.forEach(link => {
@@ -551,21 +586,34 @@
                 tabDashboard.style.display = 'none';
                 tabPrescriptions.classList.add('active');
                 tabPrescriptions.style.display = '';
+                tabOrders.classList.remove('active');
+                tabOrders.style.display = 'none';
             } else if (this.textContent.includes('Dashboard')) {
                 tabDashboard.classList.add('active');
                 tabDashboard.style.display = '';
                 tabPrescriptions.classList.remove('active');
                 tabPrescriptions.style.display = 'none';
+                tabOrders.classList.remove('active');
+                tabOrders.style.display = 'none';
+            } else if (this.textContent.includes('Orders')) {
+                tabDashboard.classList.remove('active');
+                tabDashboard.style.display = 'none';
+                tabPrescriptions.classList.remove('active');
+                tabPrescriptions.style.display = 'none';
+                tabOrders.classList.add('active');
+                tabOrders.style.display = '';
             }
         });
     });
 
-    // Show dashboard by default, hide prescription tab
+    // Show dashboard by default, hide other tabs
     window.addEventListener('DOMContentLoaded', () => {
         tabDashboard.classList.add('active');
         tabDashboard.style.display = '';
         tabPrescriptions.classList.remove('active');
         tabPrescriptions.style.display = 'none';
+        tabOrders.classList.remove('active');
+        tabOrders.style.display = 'none';
     });
 
     // Prescription upload and table logic
@@ -609,6 +657,223 @@
             `;
         });
     }
+
+    // --- Orders Tab Functionality ---
+    const orders = [
+        {
+            id: '#MED-20250705-12345',
+            date: '2025-07-05',
+            status: 'Delivered',
+            total: '$1476.00',
+            payment: 'Paid',
+            items: [
+                { name: 'Medicine A', qty: 2, price: 500, img: '/assets/images/Logo (2).png' },
+                { name: 'Medicine B', qty: 1, price: 476, img: '/assets/images/Logo (2).png' }
+            ],
+            shipping: {
+                address: '123 Main St, Kigali',
+                method: 'Express',
+                eta: '2025-07-08'
+            },
+            paymentInfo: {
+                method: 'Visa ending in 1234',
+                transactionId: 'TXN-0012345'
+            },
+            prescription: {
+                url: '#',
+                status: 'Approved',
+                notes: 'Prescription verified.'
+            },
+            discounts: 'SUMMER25',
+            canReorder: true,
+            canCancel: false,
+            canTrack: false,
+            canReview: true
+        },
+        {
+            id: '#MED-20250704-54321',
+            date: '2025-07-04',
+            status: 'Shipped',
+            total: '$980.00',
+            payment: 'Paid',
+            items: [
+                { name: 'Medicine C', qty: 1, price: 980, img: '/assets/images/Logo (2).png' }
+            ],
+            shipping: {
+                address: '456 Elm St, Kigali',
+                method: 'Standard',
+                eta: '2025-07-10'
+            },
+            paymentInfo: {
+                method: 'Mobile Money',
+                transactionId: 'TXN-0054321'
+            },
+            prescription: null,
+            discounts: null,
+            canReorder: true,
+            canCancel: false,
+            canTrack: true,
+            canReview: false
+        },
+        {
+            id: '#MED-20250703-67890',
+            date: '2025-07-03',
+            status: 'Pending',
+            total: '$520.00',
+            payment: 'Pending',
+            items: [
+                { name: 'Medicine D', qty: 1, price: 520, img: '/assets/images/Logo (2).png' }
+            ],
+            shipping: {
+                address: '789 Oak St, Kigali',
+                method: 'Standard',
+                eta: '2025-07-12'
+            },
+            paymentInfo: {
+                method: 'Visa ending in 5678',
+                transactionId: 'TXN-0067890'
+            },
+            prescription: {
+                url: '#',
+                status: 'Pending Review',
+                notes: 'Awaiting doctor review.'
+            },
+            discounts: null,
+            canReorder: false,
+            canCancel: true,
+            canTrack: false,
+            canReview: false
+        }
+    ];
+
+    function renderOrdersTable() {
+        const tbody = document.querySelector('#ordersTable tbody');
+        const statusFilter = document.getElementById('orderStatusFilter').value;
+        const search = document.getElementById('orderSearch').value.toLowerCase();
+        tbody.innerHTML = '';
+        orders.filter(order => {
+            const matchesStatus = !statusFilter || order.status === statusFilter;
+            const matchesSearch =
+                order.id.toLowerCase().includes(search) ||
+                order.items.some(item => item.name.toLowerCase().includes(search));
+            return matchesStatus && matchesSearch;
+        }).forEach(order => {
+            const statusBadge = `<span style="padding:0.2em 0.7em;border-radius:8px;font-size:0.85em;font-weight:600;background:${getStatusColor(order.status)};color:#fff;">${order.status}</span>`;
+            tbody.innerHTML += `
+                <tr>
+                    <td>${order.id}</td>
+                    <td>${order.date}</td>
+                    <td>${statusBadge}</td>
+                    <td>${order.total}</td>
+                    <td>${order.payment}</td>
+                    <td><button class="view-order-btn" data-id="${order.id}" style="padding:0.3rem 0.7rem;border-radius:6px;background:var(--mid-blue);color:#fff;border:none;cursor:pointer;font-size:0.9rem;">View Details</button></td>
+                </tr>
+            `;
+        });
+    }
+    function getStatusColor(status) {
+        switch(status) {
+            case 'Pending': return '#f7c948';
+            case 'Processing': return '#2563eb';
+            case 'Shipped': return '#2ecc71';
+            case 'Delivered': return '#052964';
+            case 'Canceled': return '#ff5a5f';
+            case 'Awaiting Prescription': return '#ff7f50';
+            default: return '#b3c6e0';
+        }
+    }
+    document.getElementById('orderStatusFilter').addEventListener('change', renderOrdersTable);
+    document.getElementById('orderSearch').addEventListener('input', renderOrdersTable);
+    document.addEventListener('DOMContentLoaded', renderOrdersTable);
+
+    // Order Details Modal
+    let orderModal = document.createElement('div');
+    orderModal.id = 'orderModal';
+    orderModal.style.display = 'none';
+    orderModal.style.position = 'fixed';
+    orderModal.style.top = '0';
+    orderModal.style.left = '0';
+    orderModal.style.width = '100vw';
+    orderModal.style.height = '100vh';
+    orderModal.style.background = 'rgba(0,0,0,0.25)';
+    orderModal.style.zIndex = '1000';
+    orderModal.innerHTML = `<div id="orderModalContent" style="background:#fff;max-width:540px;width:95vw;margin:5vh auto 0 auto;border-radius:12px;box-shadow:0 8px 32px #05296422;padding:2rem 1.5rem;position:relative;">
+        <button id="closeOrderModal" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#052964;">&times;</button>
+        <div id="orderModalBody"></div>
+    </div>`;
+    document.body.appendChild(orderModal);
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('view-order-btn')) {
+            const orderId = e.target.getAttribute('data-id');
+            const order = orders.find(o => o.id === orderId);
+            if (order) showOrderModal(order);
+        }
+        if (e.target.id === 'closeOrderModal' || e.target === orderModal) {
+            orderModal.style.display = 'none';
+        }
+    });
+    function showOrderModal(order) {
+        let itemsHtml = order.items.map(item => `
+            <tr>
+                <td><img src="${item.img}" alt="" style="width:32px;height:32px;border-radius:6px;vertical-align:middle;margin-right:8px;"> ${item.name}</td>
+                <td>${item.qty}</td>
+                <td>$${item.price.toFixed(2)}</td>
+                <td>$${(item.qty * item.price).toFixed(2)}</td>
+            </tr>
+        `).join('');
+        let prescriptionHtml = order.prescription ? `
+            <div style="margin-top:1.2rem;">
+                <strong>Prescription:</strong> <a href="${order.prescription.url}" target="_blank">View</a> <span style="margin-left:1em;font-weight:600;color:${order.prescription.status === 'Approved' ? '#2ecc71' : '#f7c948'};">${order.prescription.status}</span>
+                <div style="font-size:0.95em;color:#888;margin-top:0.2em;">${order.prescription.notes}</div>
+            </div>
+        ` : '';
+        let discountsHtml = order.discounts ? `<div><strong>Discount/Coupon:</strong> ${order.discounts}</div>` : '';
+        let actionsHtml = `
+            <div style="margin-top:1.2rem;display:flex;gap:0.7rem;flex-wrap:wrap;">
+                ${order.canTrack ? '<button style="background:var(--mid-blue);color:#fff;border:none;border-radius:6px;padding:0.5rem 1.2rem;font-weight:600;cursor:pointer;">Track Order</button>' : ''}
+                ${order.canReorder ? '<button style="background:var(--accent-green);color:#fff;border:none;border-radius:6px;padding:0.5rem 1.2rem;font-weight:600;cursor:pointer;">Reorder</button>' : ''}
+                ${order.canCancel ? '<button style="background:var(--accent-red);color:#fff;border:none;border-radius:6px;padding:0.5rem 1.2rem;font-weight:600;cursor:pointer;">Cancel Order</button>' : ''}
+                <button style="background:var(--accent-orange);color:#fff;border:none;border-radius:6px;padding:0.5rem 1.2rem;font-weight:600;cursor:pointer;">Contact Support</button>
+                ${order.canReview ? '<button style="background:var(--mid-blue);color:#fff;border:none;border-radius:6px;padding:0.5rem 1.2rem;font-weight:600;cursor:pointer;">Leave Review</button>' : ''}
+            </div>
+        `;
+        document.getElementById('orderModalBody').innerHTML = `
+            <h2 style="margin-top:0;margin-bottom:1.2rem;font-size:1.2rem;color:var(--mid-blue);">Order ${order.id}</h2>
+            <div style="margin-bottom:1.2rem;font-size:1.05em;">
+                <strong>Date:</strong> ${order.date}<br>
+                <strong>Status:</strong> <span style="padding:0.2em 0.7em;border-radius:8px;font-size:0.95em;font-weight:600;background:${getStatusColor(order.status)};color:#fff;">${order.status}</span><br>
+                <strong>Total:</strong> ${order.total}<br>
+                <strong>Payment:</strong> ${order.payment} (${order.paymentInfo.method})<br>
+                <strong>Transaction ID:</strong> ${order.paymentInfo.transactionId}
+            </div>
+            <div style="margin-bottom:1.2rem;">
+                <strong>Shipping Address:</strong> ${order.shipping.address}<br>
+                <strong>Shipping Method:</strong> ${order.shipping.method}<br>
+                <strong>Estimated Delivery:</strong> ${order.shipping.eta}
+            </div>
+            <div style="margin-bottom:1.2rem;">
+                <strong>Items:</strong>
+                <table style="width:100%;margin-top:0.5em;border-collapse:collapse;">
+                    <thead>
+                        <tr style="background:var(--light-blue);color:var(--dark-blue);font-size:0.95em;">
+                            <th style="text-align:left;padding:0.3em 0.5em;">Product</th>
+                            <th style="text-align:left;padding:0.3em 0.5em;">Qty</th>
+                            <th style="text-align:left;padding:0.3em 0.5em;">Unit Price</th>
+                            <th style="text-align:left;padding:0.3em 0.5em;">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${itemsHtml}
+                    </tbody>
+                </table>
+            </div>
+            ${prescriptionHtml}
+            ${discountsHtml}
+            ${actionsHtml}
+        `;
+        orderModal.style.display = 'block';
+    }
+});
 </script>
 </body>
 </html> 

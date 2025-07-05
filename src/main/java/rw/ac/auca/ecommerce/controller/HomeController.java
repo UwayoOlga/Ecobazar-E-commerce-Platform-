@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 
 @Controller
 public class HomeController {
-    
     @GetMapping("/")
     public String home() {
         return "home";
@@ -21,8 +20,7 @@ public class HomeController {
 
     @GetMapping("/dashboard")
     public String dashboard(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        model.addAttribute("userEmail", userDetails.getUsername());
-        // In a real app, load more user info from the database here
+        model.addAttribute("userEmail", userDetails != null ? userDetails.getUsername() : "");
         return "dashboard";
     }
 } 

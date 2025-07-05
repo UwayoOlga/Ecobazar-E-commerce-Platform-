@@ -2,6 +2,7 @@ package rw.ac.auca.ecommerce.core.customer.service;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,24 +16,17 @@ import rw.ac.auca.ecommerce.core.customer.repository.ICustomerRepository;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.Collections;
 
-/**
- * The class CustomerServiceImpl.
- *
- * @author Jeremie Ukundwa Tuyisenge
- * @version 1.0
- */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 //@AllArgsConstructor
 public class CustomerServiceImpl implements ICustomerService, UserDetailsService {
 
     private final ICustomerRepository customerRepository;
 
-//    @Autowired
-//    public CustomerServiceImpl(ICustomerRepository customerRepository){
-//        this.customerRepository = customerRepository;
-//    }
+ 
 
     @Override
     public Customer registerCustomer(Customer theCustomer) {
@@ -82,10 +76,7 @@ public class CustomerServiceImpl implements ICustomerService, UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Customer customer = customerRepository.findByEmailAndActive(email, true)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
-        return User.withUsername(customer.getEmail())
-                .password(customer.getPassword())
-                .roles("USER")
-                .build();
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return new User(customer.getEmail(), customer.getPassword(), Collections.emptyList());
     }
 }

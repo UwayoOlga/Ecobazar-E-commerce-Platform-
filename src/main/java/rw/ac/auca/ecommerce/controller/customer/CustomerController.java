@@ -1,6 +1,7 @@
 package rw.ac.auca.ecommerce.controller.customer;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @RequestMapping("/api/customers")
 public class CustomerController {
     private final ICustomerService customerService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping
     public List<Customer> getAllCustomers() {
@@ -62,7 +64,7 @@ public class CustomerController {
         customer.setLastName(registrationDto.getLastName());
         customer.setEmail(registrationDto.getEmail());
         customer.setPhoneNumber(registrationDto.getPhoneNumber());
-        customer.setPassword(registrationDto.getPassword());
+        customer.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
         customerService.registerCustomer(customer);
         model.addAttribute("message", "Customer registered successfully!");
         return "customer/customerRegistrationPage";

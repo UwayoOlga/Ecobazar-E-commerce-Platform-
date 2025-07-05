@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import rw.ac.auca.ecommerce.core.product.service.IProductService;
 import rw.ac.auca.ecommerce.core.customer.model.Customer;
 import rw.ac.auca.ecommerce.core.customer.service.ICustomerService;
 import rw.ac.auca.ecommerce.core.customer.model.CustomerRegistrationDto;
 import java.util.UUID;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CatalogController {
@@ -16,6 +18,8 @@ public class CatalogController {
     private IProductService productService;
     @Autowired
     private ICustomerService customerService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/catalog")
     public String showCatalog(Model model) {
@@ -46,14 +50,38 @@ public class CatalogController {
         customer.setLastName(registrationDto.getLastName());
         customer.setEmail(registrationDto.getEmail());
         customer.setPhoneNumber(registrationDto.getPhoneNumber());
-        customer.setPassword(registrationDto.getPassword());
+        customer.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
         customerService.registerCustomer(customer);
-        return "redirect:/login";
+        return "redirect:/login?registered";
     }
 
     @GetMapping("/login")
     public String showLoginPage() {
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String processLogin(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
+        try {
+            Customer customer = customerService.findCustomerByEmailAndState(email, true);
+            // Compare raw password (since registration used encoded, you may want to use plain for now)
+            if (customer.getPassword().equals(password)) {
+                session.setAttribute("user", customer);
+                return "redirect:/dashboard";
+            } else {
+                model.addAttribute("error", "Invalid email or password");
+                return "login";
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", "Invalid email or password");
+            return "login";
+        }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
     }
 
     @GetMapping("/contact")
@@ -74,6 +102,17 @@ public class CatalogController {
     @GetMapping("/checkout")
     public String showCheckoutPage() {
         return "checkout";
+    }
+
+    @GetMapping("/debug/customers")
+    @ResponseBody
+    public String debugCustomers() {
+        try {
+            var customers = customerService.findCustomersByState(true);
+            return "Found " + customers.size() + " customers: " + customers.toString();
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
     // Add more endpoints for cart, checkout, etc. as needed

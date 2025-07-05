@@ -19,7 +19,7 @@ import rw.ac.auca.ecommerce.core.base.AbstractBaseEntity;
 @Entity
 public class Customer extends AbstractBaseEntity {
 
-    @Column(name = "fist_name" ,nullable = false)
+    @Column(name = "first_name" ,nullable = false)
     private String firstName;
 
     @Column(name = "last_name" ,nullable = false)
