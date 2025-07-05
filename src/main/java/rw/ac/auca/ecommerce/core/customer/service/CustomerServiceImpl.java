@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.Collections;
-
+ 
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -78,5 +78,10 @@ public class CustomerServiceImpl implements ICustomerService, UserDetailsService
         Customer customer = customerRepository.findByEmailAndActive(email, true)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new User(customer.getEmail(), customer.getPassword(), Collections.emptyList());
+    }
+
+    @Override
+    public Customer findCustomerByEmail(String email) {
+        return customerRepository.findByEmailAndActive(email, Boolean.TRUE).orElse(null);
     }
 }

@@ -148,7 +148,7 @@
             padding: 0.5rem 0.8rem;
             font-size: 0.9rem;
             color: var(--dark-blue);
-            width: 140px;
+            width: 190px;
             margin-right: 0.7rem;
         }
         .topbar-actions {
@@ -357,13 +357,13 @@
                 <div class="sidebar-link active"><i class="fas fa-home"></i> Dashboard</div>
                 <div class="sidebar-link" data-tab="orders"><i class="fas fa-box"></i> Orders</div>
                 <div class="sidebar-link"><i class="fas fa-file-medical"></i> Prescriptions</div>
-                <div class="sidebar-link"><i class="fas fa-shopping-cart"></i> Cart</div>
+                <div class="sidebar-link" data-tab="cart"><i class="fas fa-shopping-cart"></i> Cart</div>
             </nav>
         </div>
         <div class="sidebar-section">
             <div class="sidebar-section-title">Management</div>
             <nav class="sidebar-nav">
-                <div class="sidebar-link"><i class="fas fa-user-cog"></i> Profile</div>
+                <div class="sidebar-link" data-tab="profile"><i class="fas fa-user-cog"></i> Profile</div>
                 <div class="sidebar-link"><i class="fas fa-map-marker-alt"></i> Addresses</div>
                 <div class="sidebar-link"><i class="fas fa-credit-card"></i> Payment</div>
             </nav>
@@ -457,33 +457,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="main-right">
-                        <div class="summary-card" style="background:var(--accent-orange);color:var(--white);">
-                            <h3 style="color:var(--white);">$9,470</h3>
-                            <div>Active Balance</div>
-                            <ul style="list-style:none;padding:0;margin:0.7rem 0 0 0;">
-                                <li>Incomes <span style="float:right;">$1699.0</span></li>
-                                <li>Expenses <span style="float:right;">$-799.0</span></li>
-                                <li>Taxes <span style="float:right;">$-199.0</span></li>
-                            </ul>
-                            <button style="margin-top:0.7rem;background:var(--white);color:var(--accent-orange);border:none;border-radius:8px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Add Virtual Card</button>
-                        </div>
-                        <div class="payments-card">
-                            <h3>Upcoming Payments</h3>
-                            <ul class="payments-list">
-                                <li>Easy Pay Way. <span class="amount">$82258.23</span></li>
-                                <li>Payonner. <span class="amount">$61486.69</span></li>
-                                <li>FastSpring. <span class="amount">$4210.38</span></li>
-                            </ul>
-                        </div>
-                        <div class="expense-card">
-                            <h3>Expenses Status <span class="on-track">On Track</span></h3>
-                            <ul class="expense-status-list">
-                                <li>Order 1 <span class="on-track">$120.00</span></li>
-                                <li>Order 2 <span class="on-track">$80.00</span></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 <!-- Orders Tab -->
                 <div class="tab-content" id="tab-orders" style="display:none;">
@@ -522,7 +495,132 @@
                 </div>
                 <!-- Prescriptions Tab -->
                 <div class="tab-content" id="tab-prescriptions" style="display:none;">
-                    <!-- ...prescriptions content... -->
+                    <div class="summary-card">
+                        <h3>Upload Prescription</h3>
+                        <form id="prescriptionUploadForm" style="display:flex;gap:0.7rem;align-items:center;margin-bottom:1rem;">
+                            <input type="file" id="prescriptionFile" accept=".pdf,.jpg,.jpeg,.png" required style="padding:0.3rem 0.7rem;border-radius:6px;border:1px solid #e0e7ff;font-size:0.9rem;" />
+                            <input type="text" id="doctorName" placeholder="Doctor's Name (optional)" style="padding:0.3rem 0.7rem;border-radius:6px;border:1px solid #e0e7ff;font-size:0.9rem;" />
+                            <button type="submit" style="background:var(--accent-green);color:var(--white);border:none;border-radius:8px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Upload</button>
+                        </form>
+                        <table class="order-table" id="prescriptionTable">
+                            <thead>
+                                <tr>
+                                    <th>File</th>
+                                    <th>Date</th>
+                                    <th>Doctor</th>
+                                    <th>Status</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Prescriptions will be rendered here by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Cart Tab -->
+                <div class="tab-content" id="tab-cart" style="display:none;">
+                    <div class="summary-card">
+                        <h3>Your Shopping Cart</h3>
+                        <div id="cartPrescriptionPrompt" style="display:none;background:#fffbe6;color:#b26a00;padding:0.7rem 1rem;border-radius:8px;margin-bottom:1rem;font-size:0.97em;">
+                            <i class="fas fa-prescription-bottle-alt"></i> Some items require a valid prescription. <a href="#" id="goToPrescription" style="color:var(--accent-green);font-weight:600;text-decoration:underline;">Upload Prescription</a>
+                        </div>
+                        <table class="order-table" id="cartTable">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Product</th>
+                                    <th>Dosage</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Cart items will be rendered here by JS -->
+                            </tbody>
+                        </table>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.2rem;flex-wrap:wrap;gap:1rem;">
+                            <div>
+                                <input id="cartCoupon" type="text" placeholder="Promo code" style="padding:0.3rem 0.7rem;border-radius:6px;border:1px solid #e0e7ff;font-size:0.9rem;" />
+                                <button id="applyCoupon" style="background:var(--accent-blue);color:var(--white);border:none;border-radius:8px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;margin-left:0.5rem;">Apply</button>
+                            </div>
+                            <div style="text-align:right;min-width:220px;">
+                                <div style="font-size:1.05em;margin-bottom:0.3em;">Subtotal: <span id="cartSubtotal" style="font-weight:600;color:var(--dark-blue);">$0.00</span></div>
+                                <div style="font-size:1.05em;margin-bottom:0.3em;">Estimated Total: <span id="cartTotal" style="font-weight:600;color:var(--accent-blue);">$0.00</span></div>
+                                <button id="checkoutBtn" style="margin-top:0.7rem;background:var(--accent-green);color:var(--white);border:none;border-radius:8px;padding:0.6rem 2rem;font-weight:700;font-size:1.1em;cursor:pointer;box-shadow:0 2px 8px #2563eb11;">Proceed to Checkout <i class="fas fa-lock"></i></button>
+                                <div style="margin-top:0.5em;font-size:0.9em;color:#888;"><i class="fas fa-shield-alt"></i> Secure Checkout</div>
+                            </div>
+                        </div>
+                        <div style="margin-top:1.2rem;display:flex;align-items:center;gap:1em;">
+                            <a href="#" id="continueShopping" style="color:var(--accent-blue);font-weight:600;text-decoration:underline;"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+                            <span style="font-size:0.9em;color:#aaa;">|</span>
+                            <span style="font-size:0.9em;color:#aaa;">Need help? <a href="#" style="color:var(--accent-blue);text-decoration:underline;">Contact Support</a></span>
+                        </div>
+                        <div style="margin-top:1.2rem;display:flex;gap:1.5em;align-items:center;">
+                            <img src="/assets/images/Logo (2).png" alt="Trust" style="height:32px;" />
+                            <span style="font-size:0.9em;color:#888;"><i class="fas fa-lock"></i> 256-bit SSL Secure</span>
+                            <span style="font-size:0.9em;color:#888;"><i class="fas fa-shield-alt"></i> Buyer Protection</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profile Tab -->
+                <div class="tab-content" id="tab-profile" style="display:none;">
+                    <div class="profile-card" style="max-width:520px;margin:2rem auto;background:#fff;border-radius:14px;box-shadow:0 2px 16px #05296411;padding:2.2rem 2rem;">
+                        <h2 style="margin-top:0;margin-bottom:1.5rem;color:var(--mid-blue);font-size:1.5rem;font-weight:700;letter-spacing:-1px;">My Profile</h2>
+                        <form id="profileDetailsForm" autocomplete="off">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 2rem;">
+                                <div style="grid-column:1/3;">
+                                    <label style="font-weight:600;color:#052964;">Email Address</label>
+                                    <input type="email" id="profileEmail" readonly style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;background:#f8fafc;color:#888;font-size:1.05em;" />
+                                </div>
+                                <div>
+                                    <label style="font-weight:600;color:#052964;">First Name</label>
+                                    <input type="text" id="profileFirstName" required style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                                </div>
+                                <div>
+                                    <label style="font-weight:600;color:#052964;">Last Name</label>
+                                    <input type="text" id="profileLastName" required style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                                </div>
+                                <div style="grid-column:1/3;">
+                                    <label style="font-weight:600;color:#052964;">Phone Number</label>
+                                    <input type="tel" id="profilePhone" required style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                                </div>
+                            </div>
+                            <div id="profileMsg" style="margin-top:1.2rem;font-size:1.05em;"></div>
+                            <div style="text-align:right;margin-top:2rem;">
+                                <button type="submit" style="background:var(--accent-blue);color:var(--white);border:none;border-radius:8px;padding:0.7rem 2.2rem;font-weight:700;font-size:1.1em;cursor:pointer;box-shadow:0 2px 8px #2563eb11;">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="main-right" id="dashboard-sidebar">
+                <div class="summary-card" style="background:var(--accent-orange);color:var(--white);">
+                    <h3 style="color:var(--white);">$9,470</h3>
+                    <div>Active Balance</div>
+                    <ul style="list-style:none;padding:0;margin:0.7rem 0 0 0;">
+                        <li>Incomes <span style="float:right;">$1699.0</span></li>
+                        <li>Expenses <span style="float:right;">$-799.0</span></li>
+                        <li>Taxes <span style="float:right;">$-199.0</span></li>
+                    </ul>
+                    <button style="margin-top:0.7rem;background:var(--white);color:var(--accent-orange);border:none;border-radius:8px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Add Virtual Card</button>
+                </div>
+                <div class="payments-card">
+                    <h3>Upcoming Payments</h3>
+                    <ul class="payments-list">
+                        <li>Easy Pay Way. <span class="amount">$82258.23</span></li>
+                        <li>Payonner. <span class="amount">$61486.69</span></li>
+                        <li>FastSpring. <span class="amount">$4210.38</span></li>
+                    </ul>
+                </div>
+                <div class="expense-card">
+                    <h3>Expenses Status <span class="on-track">On Track</span></h3>
+                    <ul class="expense-status-list">
+                        <li>Order 1 <span class="on-track">$120.00</span></li>
+                        <li>Order 2 <span class="on-track">$80.00</span></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -577,7 +675,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabDashboard = document.getElementById('tab-dashboard');
     const tabPrescriptions = document.getElementById('tab-prescriptions');
     const tabOrders = document.getElementById('tab-orders');
+    const tabCart = document.getElementById('tab-cart');
+    const tabProfile = document.getElementById('tab-profile');
     const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const dashboardSidebar = document.getElementById('dashboard-sidebar');
 
     sidebarLinks.forEach(link => {
         link.addEventListener('click', function() {
@@ -588,6 +689,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 tabPrescriptions.style.display = '';
                 tabOrders.classList.remove('active');
                 tabOrders.style.display = 'none';
+                tabCart.classList.remove('active');
+                tabCart.style.display = 'none';
+                tabProfile.classList.remove('active');
+                tabProfile.style.display = 'none';
+                dashboardSidebar.style.display = 'none';
             } else if (this.textContent.includes('Dashboard')) {
                 tabDashboard.classList.add('active');
                 tabDashboard.style.display = '';
@@ -595,6 +701,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 tabPrescriptions.style.display = 'none';
                 tabOrders.classList.remove('active');
                 tabOrders.style.display = 'none';
+                tabCart.classList.remove('active');
+                tabCart.style.display = 'none';
+                tabProfile.classList.remove('active');
+                tabProfile.style.display = 'none';
+                dashboardSidebar.style.display = '';
             } else if (this.textContent.includes('Orders')) {
                 tabDashboard.classList.remove('active');
                 tabDashboard.style.display = 'none';
@@ -602,19 +713,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 tabPrescriptions.style.display = 'none';
                 tabOrders.classList.add('active');
                 tabOrders.style.display = '';
+                tabCart.classList.remove('active');
+                tabCart.style.display = 'none';
+                tabProfile.classList.remove('active');
+                tabProfile.style.display = 'none';
+                dashboardSidebar.style.display = 'none';
+            } else if (this.textContent.includes('Cart')) {
+                tabDashboard.classList.remove('active');
+                tabDashboard.style.display = 'none';
+                tabPrescriptions.classList.remove('active');
+                tabPrescriptions.style.display = 'none';
+                tabOrders.classList.remove('active');
+                tabOrders.style.display = 'none';
+                tabCart.classList.add('active');
+                tabCart.style.display = '';
+                tabProfile.classList.remove('active');
+                tabProfile.style.display = 'none';
+                dashboardSidebar.style.display = 'none';
+            } else if (this.textContent.includes('Profile')) {
+                tabDashboard.classList.remove('active');
+                tabDashboard.style.display = 'none';
+                tabPrescriptions.classList.remove('active');
+                tabPrescriptions.style.display = 'none';
+                tabOrders.classList.remove('active');
+                tabOrders.style.display = 'none';
+                tabCart.classList.remove('active');
+                tabCart.style.display = 'none';
+                tabProfile.classList.add('active');
+                tabProfile.style.display = '';
+                dashboardSidebar.style.display = 'none';
             }
         });
     });
 
-    // Show dashboard by default, hide other tabs
-    window.addEventListener('DOMContentLoaded', () => {
-        tabDashboard.classList.add('active');
-        tabDashboard.style.display = '';
-        tabPrescriptions.classList.remove('active');
-        tabPrescriptions.style.display = 'none';
-        tabOrders.classList.remove('active');
-        tabOrders.style.display = 'none';
-    });
+    // Show dashboard sidebar by default
+    dashboardSidebar.style.display = '';
 
     // Prescription upload and table logic
     const prescriptionTable = document.getElementById('prescriptionTable').querySelector('tbody');
@@ -873,6 +1006,125 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         orderModal.style.display = 'block';
     }
+
+    // Cart mock data
+    let cartItems = [
+        { id: 1, name: 'Paracetamol', img: '/assets/images/Logo (2).png', dosage: '500mg', price: 5.99, qty: 2, rx: false },
+        { id: 2, name: 'Amoxicillin', img: '/assets/images/Logo (2).png', dosage: '250mg', price: 12.49, qty: 1, rx: true },
+        { id: 3, name: 'Cough Syrup', img: '/assets/images/Logo (2).png', dosage: '100ml', price: 8.99, qty: 1, rx: false }
+    ];
+    let cartCoupon = null;
+    function renderCart() {
+        const tbody = document.querySelector('#cartTable tbody');
+        tbody.innerHTML = '';
+        let subtotal = 0;
+        let hasRx = false;
+        cartItems.forEach(item => {
+            const itemSubtotal = item.price * item.qty;
+            subtotal += itemSubtotal;
+            if (item.rx) hasRx = true;
+            tbody.innerHTML += `
+                <tr>
+                    <td><img src="${item.img}" alt="${item.name}" style="width:38px;height:38px;border-radius:8px;object-fit:cover;box-shadow:0 1px 4px #2563eb22;" /></td>
+                    <td>${item.name} ${item.rx ? '<span title="Requires Prescription" style="color:var(--accent-red);font-weight:600;font-size:1.1em;margin-left:0.3em;"><i class=\'fas fa-prescription-bottle-alt\'></i> Rx</span>' : ''}</td>
+                    <td>${item.dosage}</td>
+                    <td>$${item.price.toFixed(2)}</td>
+                    <td><input type="number" min="1" value="${item.qty}" data-id="${item.id}" class="cart-qty" style="width:48px;padding:0.2em 0.4em;border-radius:6px;border:1px solid #e0e7ff;font-size:1em;text-align:center;" /></td>
+                    <td>$${itemSubtotal.toFixed(2)}</td>
+                    <td><button class="cart-remove" data-id="${item.id}" style="background:none;border:none;color:var(--accent-red);font-size:1.2em;cursor:pointer;"><i class="fas fa-trash"></i></button></td>
+                </tr>
+            `;
+        });
+        document.getElementById('cartSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+        let total = subtotal;
+        if (cartCoupon === 'SAVE10') total = subtotal * 0.9;
+        document.getElementById('cartTotal').textContent = `$${total.toFixed(2)}`;
+        document.getElementById('cartPrescriptionPrompt').style.display = hasRx ? '' : 'none';
+    }
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('cart-qty')) {
+            const id = +e.target.dataset.id;
+            let val = Math.max(1, parseInt(e.target.value) || 1);
+            const item = cartItems.find(i => i.id === id);
+            if (item) item.qty = val;
+            renderCart();
+        }
+    });
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('cart-remove') || (e.target.closest && e.target.closest('.cart-remove'))) {
+            const btn = e.target.closest('.cart-remove');
+            const id = +btn.dataset.id;
+            cartItems = cartItems.filter(i => i.id !== id);
+            renderCart();
+        }
+        if (e.target.id === 'applyCoupon') {
+            const val = document.getElementById('cartCoupon').value.trim();
+            if (val === 'SAVE10') {
+                cartCoupon = 'SAVE10';
+                renderCart();
+                alert('Coupon applied! 10% off.');
+            } else {
+                alert('Invalid coupon code.');
+            }
+        }
+        if (e.target.id === 'continueShopping') {
+            // Go to catalog tab if exists, else home
+            const catalogTab = document.getElementById('tab-catalog');
+            if (catalogTab) {
+                catalogTab.classList.add('active');
+                catalogTab.style.display = '';
+                tabCart.classList.remove('active');
+                tabCart.style.display = 'none';
+            } else {
+                window.location.href = '/';
+            }
+        }
+        if (e.target.id === 'goToPrescription') {
+            tabCart.classList.remove('active');
+            tabCart.style.display = 'none';
+            tabPrescriptions.classList.add('active');
+            tabPrescriptions.style.display = '';
+        }
+    });
+    // Initial render
+    renderCart();
+
+    // --- Profile Tab Functionality ---
+    function loadProfile() {
+        fetch('/api/customers/me')
+            .then(r => r.json())
+            .then(data => {
+                if (!data || !data.email) return;
+                document.getElementById('profileEmail').value = data.email;
+                document.getElementById('profileFirstName').value = data.firstName || '';
+                document.getElementById('profileLastName').value = data.lastName || '';
+                document.getElementById('profilePhone').value = data.phoneNumber || '';
+            });
+    }
+    document.querySelector('[data-tab="profile"]').addEventListener('click', loadProfile);
+    document.getElementById('profileDetailsForm').onsubmit = function(e) {
+        e.preventDefault();
+        const msg = document.getElementById('profileMsg');
+        msg.textContent = '';
+        fetch('/api/customers/me', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                firstName: document.getElementById('profileFirstName').value,
+                lastName: document.getElementById('profileLastName').value,
+                phoneNumber: document.getElementById('profilePhone').value
+            })
+        })
+        .then(r => r.ok ? r.json() : Promise.reject(r))
+        .then(data => {
+            msg.style.color = 'var(--accent-green)';
+            msg.textContent = 'Profile updated successfully!';
+        })
+        .catch(() => {
+            msg.style.color = 'var(--accent-red)';
+            msg.textContent = 'Failed to update profile.';
+        });
+    };
 });
 </script>
 </body>
