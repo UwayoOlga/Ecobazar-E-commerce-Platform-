@@ -364,14 +364,14 @@
             <div class="sidebar-section-title">Management</div>
             <nav class="sidebar-nav">
                 <div class="sidebar-link" data-tab="profile"><i class="fas fa-user-cog"></i> Profile</div>
-                <div class="sidebar-link"><i class="fas fa-map-marker-alt"></i> Addresses</div>
-                <div class="sidebar-link"><i class="fas fa-credit-card"></i> Payment</div>
+                <div class="sidebar-link" data-tab="addresses"><i class="fas fa-map-marker-alt"></i> Addresses</div>
+                <div class="sidebar-link" data-tab="payment"><i class="fas fa-credit-card"></i> Payment</div>
             </nav>
         </div>
         <div class="sidebar-section">
             <div class="sidebar-section-title">Notifications</div>
             <nav class="sidebar-nav">
-                <div class="sidebar-link"><i class="fas fa-bell"></i> Alerts</div>
+                <div class="sidebar-link"><i class="fas fa-bell"></i> Notifications</div>
                 <div class="sidebar-link"><i class="fas fa-envelope"></i> Messages</div>
             </nav>
         </div>
@@ -565,6 +565,21 @@
                         </div>
                     </div>
                 </div>
+                <!-- Addresses Tab -->
+                <div class="tab-content" id="tab-addresses" style="display:none;">
+                    <div class="summary-card" style="max-width:700px;margin:2rem auto;background:#fff;border-radius:14px;box-shadow:0 2px 16px #05296411;padding:2.2rem 2rem;">
+                        <h2 style="margin-top:0;margin-bottom:1.5rem;color:#052964;font-size:1.5rem;font-weight:700;letter-spacing:-1px;">My Addresses</h2>
+                        <div style="margin-bottom:1.5rem;">
+                            <button id="addAddressBtn" style="background:var(--accent-blue);color:var(--white);border:none;border-radius:8px;padding:0.6rem 1.5rem;font-weight:700;font-size:1.1em;cursor:pointer;box-shadow:0 2px 8px #2563eb11;">Add New Address</button>
+                        </div>
+                        <div id="addressesList"><div id="addressesLoading" style="text-align:center;color:#2563eb;font-size:1.1em;margin:2em 0;">Loading addresses...</div></div>
+                        <div id="addressFormContainer" style="display:none;margin-top:2rem;"></div>
+                        <hr style="margin:2.5rem 0;">
+                        <h3 style="color:#2563eb;">Billing Addresses</h3>
+                        <div id="billingAddressesList"><div id="billingAddressesLoading" style="text-align:center;color:#2563eb;font-size:1.1em;margin:2em 0;">Loading addresses...</div></div>
+                        <div id="billingAddressFormContainer" style="display:none;margin-top:2rem;"></div>
+                    </div>
+                </div>
                 <!-- Profile Tab -->
                 <div class="tab-content" id="tab-profile" style="display:none;">
                     <div class="profile-card" style="max-width:520px;margin:2rem auto;background:#fff;border-radius:14px;box-shadow:0 2px 16px #05296411;padding:2.2rem 2rem;">
@@ -595,6 +610,38 @@
                         </form>
                     </div>
                 </div>
+                <!-- Payment Tab -->
+                <div class="tab-content" id="tab-payment" style="display:none;">
+                    <div class="summary-card" style="max-width:700px;margin:2rem auto;background:#fff;border-radius:14px;box-shadow:0 2px 16px #05296411;padding:2.2rem 2rem;">
+                        <h2 style="margin-top:0;margin-bottom:1.5rem;color:#052964;font-size:1.5rem;font-weight:700;letter-spacing:-1px;">My Payment Methods</h2>
+                        <div style="margin-bottom:1.5rem;">
+                            <button id="addPaymentBtn" style="background:var(--accent-blue);color:var(--white);border:none;border-radius:8px;padding:0.6rem 1.5rem;font-weight:700;font-size:1.1em;cursor:pointer;box-shadow:0 2px 8px #2563eb11;">Add New Payment Method</button>
+                        </div>
+                        <div id="paymentMethodsList"><div id="paymentMethodsLoading" style="text-align:center;color:#2563eb;font-size:1.1em;margin:2em 0;">Loading payment methods...</div></div>
+                    </div>
+                </div>
+                <!-- Notifications Tab -->
+                <div class="tab-content" id="tab-notifications" style="display:none;">
+                    <div class="summary-card" style="max-width:700px;margin:2rem auto;background:#fff;border-radius:14px;box-shadow:0 2px 16px #05296411;padding:2.2rem 2rem;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <h2 style="margin-top:0;margin-bottom:1.5rem;color:#052964;font-size:1.5rem;font-weight:700;letter-spacing:-1px;">Notifications</h2>
+                            <button id="markAllNotificationsReadBtn" style="background:var(--accent-green);color:#fff;border:none;border-radius:8px;padding:0.5rem 1.2rem;font-weight:600;cursor:pointer;">Mark All as Read</button>
+                        </div>
+                        <div style="display:flex;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap;">
+                            <select id="notificationTypeFilter" style="padding:0.4rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1em;">
+                                <option value="">All Types</option>
+                                <option value="Order Update">Order Updates</option>
+                                <option value="Prescription">Prescription</option>
+                                <option value="Promotion">Promotions</option>
+                                <option value="Account">Account</option>
+                                <option value="Reminder">Reminders</option>
+                            </select>
+                            <input id="notificationSearch" type="text" placeholder="Search notifications..." style="padding:0.4rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1em;flex:1;min-width:180px;" />
+                        </div>
+                        <div id="notificationsList"><div id="notificationsLoading" style="text-align:center;color:#2563eb;font-size:1.1em;margin:2em 0;">Loading notifications...</div></div>
+                    </div>
+                </div>
+                <div id="notificationFeedback" style="display:none;position:fixed;top:2rem;left:50%;transform:translateX(-50%);background:var(--accent-green);color:#fff;padding:1rem 2rem;border-radius:8px;z-index:3000;font-weight:600;font-size:1.1em;box-shadow:0 2px 8px #05296422;"></div>
             </div>
             <div class="main-right" id="dashboard-sidebar">
                 <div class="summary-card" style="background:var(--accent-orange);color:var(--white);">
@@ -626,6 +673,22 @@
         </div>
     </main>
 </div>
+<!-- Modal for Address Form -->
+<div id="addressModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.25);z-index:2000;align-items:center;justify-content:center;">
+  <div id="addressModalContent" style="background:#fff;max-width:540px;width:95vw;margin:auto;border-radius:12px;box-shadow:0 8px 32px #05296422;padding:2rem 1.5rem;position:relative;">
+    <button id="closeAddressModal" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#052964;">&times;</button>
+    <div id="addressModalBody"></div>
+  </div>
+</div>
+<div id="addressFeedback" style="display:none;position:fixed;top:2rem;left:50%;transform:translateX(-50%);background:var(--accent-green);color:#fff;padding:1rem 2rem;border-radius:8px;z-index:3000;font-weight:600;font-size:1.1em;box-shadow:0 2px 8px #05296422;"></div>
+<!-- Payment Modal -->
+<div id="paymentModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.25);z-index:2000;align-items:center;justify-content:center;">
+  <div id="paymentModalContent" style="background:#fff;max-width:540px;width:95vw;margin:auto;border-radius:12px;box-shadow:0 8px 32px #05296422;padding:2rem 1.5rem;position:relative;">
+    <button id="closePaymentModal" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#052964;">&times;</button>
+    <div id="paymentModalBody"></div>
+  </div>
+</div>
+<div id="paymentFeedback" style="display:none;position:fixed;top:2rem;left:50%;transform:translateX(-50%);background:var(--accent-green);color:#fff;padding:1rem 2rem;border-radius:8px;z-index:3000;font-weight:600;font-size:1.1em;box-shadow:0 2px 8px #05296422;"></div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Chart.js dynamic bar chart with months
@@ -677,6 +740,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabOrders = document.getElementById('tab-orders');
     const tabCart = document.getElementById('tab-cart');
     const tabProfile = document.getElementById('tab-profile');
+    const tabAddresses = document.getElementById('tab-addresses');
+    const tabPayment = document.getElementById('tab-payment');
+    const tabNotifications = document.getElementById('tab-notifications');
     const sidebarLinks = document.querySelectorAll('.sidebar-link');
     const dashboardSidebar = document.getElementById('dashboard-sidebar');
 
@@ -693,6 +759,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 tabCart.style.display = 'none';
                 tabProfile.classList.remove('active');
                 tabProfile.style.display = 'none';
+                tabAddresses.classList.remove('active');
+                tabAddresses.style.display = 'none';
+                tabPayment.classList.remove('active');
+                tabPayment.style.display = 'none';
+                tabNotifications.classList.remove('active');
+                tabNotifications.style.display = 'none';
                 dashboardSidebar.style.display = 'none';
             } else if (this.textContent.includes('Dashboard')) {
                 tabDashboard.classList.add('active');
@@ -705,6 +777,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 tabCart.style.display = 'none';
                 tabProfile.classList.remove('active');
                 tabProfile.style.display = 'none';
+                tabAddresses.classList.remove('active');
+                tabAddresses.style.display = 'none';
+                tabPayment.classList.remove('active');
+                tabPayment.style.display = 'none';
+                tabNotifications.classList.remove('active');
+                tabNotifications.style.display = 'none';
                 dashboardSidebar.style.display = '';
             } else if (this.textContent.includes('Orders')) {
                 tabDashboard.classList.remove('active');
@@ -717,6 +795,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 tabCart.style.display = 'none';
                 tabProfile.classList.remove('active');
                 tabProfile.style.display = 'none';
+                tabAddresses.classList.remove('active');
+                tabAddresses.style.display = 'none';
+                tabPayment.classList.remove('active');
+                tabPayment.style.display = 'none';
+                tabNotifications.classList.remove('active');
+                tabNotifications.style.display = 'none';
                 dashboardSidebar.style.display = 'none';
             } else if (this.textContent.includes('Cart')) {
                 tabDashboard.classList.remove('active');
@@ -729,6 +813,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 tabCart.style.display = '';
                 tabProfile.classList.remove('active');
                 tabProfile.style.display = 'none';
+                tabAddresses.classList.remove('active');
+                tabAddresses.style.display = 'none';
+                tabPayment.classList.remove('active');
+                tabPayment.style.display = 'none';
+                tabNotifications.classList.remove('active');
+                tabNotifications.style.display = 'none';
                 dashboardSidebar.style.display = 'none';
             } else if (this.textContent.includes('Profile')) {
                 tabDashboard.classList.remove('active');
@@ -741,7 +831,70 @@ document.addEventListener('DOMContentLoaded', function() {
                 tabCart.style.display = 'none';
                 tabProfile.classList.add('active');
                 tabProfile.style.display = '';
+                tabAddresses.classList.remove('active');
+                tabAddresses.style.display = 'none';
+                tabPayment.classList.remove('active');
+                tabPayment.style.display = 'none';
+                tabNotifications.classList.remove('active');
+                tabNotifications.style.display = 'none';
                 dashboardSidebar.style.display = 'none';
+            } else if (this.textContent.includes('Addresses')) {
+                tabDashboard.classList.remove('active');
+                tabDashboard.style.display = 'none';
+                tabPrescriptions.classList.remove('active');
+                tabPrescriptions.style.display = 'none';
+                tabOrders.classList.remove('active');
+                tabOrders.style.display = 'none';
+                tabCart.classList.remove('active');
+                tabCart.style.display = 'none';
+                tabProfile.classList.remove('active');
+                tabProfile.style.display = 'none';
+                tabAddresses.classList.add('active');
+                tabAddresses.style.display = '';
+                tabPayment.classList.remove('active');
+                tabPayment.style.display = 'none';
+                tabNotifications.classList.remove('active');
+                tabNotifications.style.display = 'none';
+                dashboardSidebar.style.display = 'none';
+                loadAddresses();
+            } else if (this.textContent.includes('Payment')) {
+                tabDashboard.classList.remove('active');
+                tabDashboard.style.display = 'none';
+                tabPrescriptions.classList.remove('active');
+                tabPrescriptions.style.display = 'none';
+                tabOrders.classList.remove('active');
+                tabOrders.style.display = 'none';
+                tabCart.classList.remove('active');
+                tabCart.style.display = 'none';
+                tabProfile.classList.remove('active');
+                tabProfile.style.display = 'none';
+                tabAddresses.classList.remove('active');
+                tabAddresses.style.display = 'none';
+                tabPayment.classList.add('active');
+                tabPayment.style.display = '';
+                tabNotifications.classList.remove('active');
+                tabNotifications.style.display = 'none';
+                dashboardSidebar.style.display = 'none';
+                loadPaymentMethods();
+            } else if (this.textContent.includes('Notifications')) {
+                tabDashboard.classList.remove('active');
+                tabDashboard.style.display = 'none';
+                tabPrescriptions.classList.remove('active');
+                tabPrescriptions.style.display = 'none';
+                tabOrders.classList.remove('active');
+                tabOrders.style.display = 'none';
+                tabCart.classList.remove('active');
+                tabCart.style.display = 'none';
+                tabProfile.classList.remove('active');
+                tabProfile.style.display = 'none';
+                tabAddresses.classList.remove('active');
+                tabAddresses.style.display = 'none';
+                tabPayment.classList.remove('active');
+                tabPayment.style.display = 'none';
+                tabNotifications.classList.add('active');
+                tabNotifications.style.display = '';
+                dashboardSidebar.style.display = 'none';
+                loadNotifications();
             }
         });
     });
@@ -1125,6 +1278,422 @@ document.addEventListener('DOMContentLoaded', function() {
             msg.textContent = 'Failed to update profile.';
         });
     };
+
+    // --- Addresses Tab Functionality ---
+    function renderAddressRow(address, isBilling = false) {
+        return `<div class="address-row" style="border:1px solid #e0e7ff;border-radius:8px;padding:1.2rem;margin-bottom:1.2rem;position:relative;background:#f8fafc;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                <div>
+                    <div style="font-weight:600;font-size:1.1em;color:#052964;">${address.recipientName || ''} <span style="color:#888;font-size:0.9em;">(${address.label || 'Shipping'})</span> ${address.isDefault ? '<span style="color:var(--accent-green);font-weight:600;font-size:0.9em;">Default</span>' : ''}
+                </div>
+                <div style="color:#2563eb;font-size:1em;">${address.street || ''} ${address.apartment || ''}, ${address.city || ''}, ${address.region || ''}, ${address.country || ''} ${address.postalCode || ''}</div>
+                <div style="color:#888;font-size:0.95em;">Phone: ${address.phone || ''}</div>
+            </div>
+            <div style="display:flex;gap:0.5em;">
+                <button class="edit-address-btn" data-id="${address.id}" data-billing="${isBilling}" style="background:var(--accent-blue);color:#fff;border:none;border-radius:6px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Edit</button>
+                <button class="delete-address-btn" data-id="${address.id}" data-billing="${isBilling}" style="background:var(--accent-red);color:#fff;border:none;border-radius:6px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Delete</button>
+                ${!address.isDefault ? `<button class="set-default-address-btn" data-id="${address.id}" data-billing="${isBilling}" style="background:var(--accent-green);color:#fff;border:none;border-radius:6px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Set as Default</button>` : ''}
+            </div>
+        </div>`;
+    }
+    function renderAddresses(addresses, containerId, isBilling = false) {
+        const container = document.getElementById(containerId);
+        if (!addresses.length) {
+            container.innerHTML = `<div style="color:#888;font-size:1.05em;">No addresses saved.</div>`;
+            return;
+        }
+        container.innerHTML = addresses.map(addr => renderAddressRow(addr, isBilling)).join('');
+    }
+    function addressFormHtml(address = {}, isBilling = false) {
+        return `<form class="address-form" data-billing="${isBilling}" data-id="${address.id || ''}" style="background:#fff;padding:1.5rem;border-radius:10px;box-shadow:0 2px 8px #05296411;">
+            <h3 style="margin-top:0;color:#2563eb;">${address.id ? 'Edit Address' : 'Add New Address'}</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 2rem;">
+                <div style="grid-column:1/3;">
+                    <label style="font-weight:600;color:#052964;">Recipient Name</label>
+                    <input type="text" name="recipientName" value="${address.recipientName || ''}" required style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div>
+                    <label style="font-weight:600;color:#052964;">Label</label>
+                    <input type="text" name="label" value="${address.label || ''}" placeholder="Home, Work, etc." style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div>
+                    <label style="font-weight:600;color:#052964;">Phone</label>
+                    <input type="tel" name="phone" value="${address.phone || ''}" required style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div style="grid-column:1/3;">
+                    <label style="font-weight:600;color:#052964;">Street Address</label>
+                    <input type="text" name="street" value="${address.street || ''}" required style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div>
+                    <label style="font-weight:600;color:#052964;">Apartment/Suite</label>
+                    <input type="text" name="apartment" value="${address.apartment || ''}" style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div>
+                    <label style="font-weight:600;color:#052964;">City</label>
+                    <input type="text" name="city" value="${address.city || ''}" required style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div>
+                    <label style="font-weight:600;color:#052964;">Region/State</label>
+                    <input type="text" name="region" value="${address.region || ''}" style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div>
+                    <label style="font-weight:600;color:#052964;">Postal Code</label>
+                    <input type="text" name="postalCode" value="${address.postalCode || ''}" style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div>
+                    <label style="font-weight:600;color:#052964;">Country</label>
+                    <input type="text" name="country" value="${address.country || ''}" required style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div style="grid-column:1/3;">
+                    <label><input type="checkbox" name="isDefault" ${address.isDefault ? 'checked' : ''} /> Set as default</label>
+                </div>
+            </div>
+            <div style="text-align:right;margin-top:2rem;">
+                <button type="submit" style="background:var(--accent-blue);color:var(--white);border:none;border-radius:8px;padding:0.7rem 2.2rem;font-weight:700;font-size:1.1em;cursor:pointer;box-shadow:0 2px 8px #2563eb11;">${address.id ? 'Save Changes' : 'Add Address'}</button>
+                <button type="button" class="cancel-address-form-btn" style="margin-left:1em;background:#eee;color:#052964;border:none;border-radius:8px;padding:0.7rem 2.2rem;font-weight:700;font-size:1.1em;cursor:pointer;">Cancel</button>
+            </div>
+        </form>`;
+    }
+    function showAddressModal(address = {}, isBilling = false) {
+        document.getElementById('addressModalBody').innerHTML = addressFormHtml(address, isBilling);
+        document.getElementById('addressModal').style.display = 'flex';
+    }
+    document.getElementById('addAddressBtn').onclick = function() {
+        showAddressModal();
+    };
+    document.getElementById('closeAddressModal').onclick = function() {
+        document.getElementById('addressModal').style.display = 'none';
+    };
+    document.getElementById('addressModal').onclick = function(e) {
+        if (e.target === this) this.style.display = 'none';
+    };
+    document.getElementById('addressesList').onclick = document.getElementById('billingAddressesList').onclick = function(e) {
+        if (e.target.classList.contains('edit-address-btn')) {
+            const id = e.target.dataset.id;
+            const isBilling = e.target.dataset.billing === 'true';
+            fetch('/api/customers/addresses')
+                .then(r => r.json())
+                .then(addresses => {
+                    const addr = addresses.find(a => a.id == id);
+                    showAddressModal(addr, isBilling);
+                });
+        } else if (e.target.classList.contains('delete-address-btn')) {
+            const id = e.target.dataset.id;
+            if (confirm('Delete this address?')) {
+                fetch(`/api/customers/addresses/${id}`, { method: 'DELETE' })
+                    .then(() => {
+                        showFeedback('Address deleted successfully!', true);
+                        loadAddresses();
+                    })
+                    .catch(() => showFeedback('Failed to delete address.', false));
+            }
+        } else if (e.target.classList.contains('set-default-address-btn')) {
+            const id = e.target.dataset.id;
+            fetch(`/api/customers/addresses/${id}/default`, { method: 'POST' })
+                .then(() => {
+                    showFeedback('Default address updated!', true);
+                    loadAddresses();
+                })
+                .catch(() => showFeedback('Failed to set default address.', false));
+        }
+    };
+    function showFeedback(msg, success) {
+        const el = document.getElementById('addressFeedback');
+        el.textContent = msg;
+        el.style.background = success ? 'var(--accent-green)' : 'var(--accent-red)';
+        el.style.display = 'block';
+        setTimeout(() => { el.style.display = 'none'; }, 2500);
+    }
+    document.getElementById('addressModalBody').onsubmit = function(e) {
+        if (e.target.classList.contains('address-form')) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
+            const data = Object.fromEntries(new FormData(form).entries());
+            data.isDefault = !!form.querySelector('[name="isDefault"]').checked;
+            if (!data.label && form.dataset.billing === 'true') data.label = 'Billing';
+            const id = form.getAttribute('data-id') || data.id;
+            const method = id ? 'PUT' : 'POST';
+            const url = id ? `/api/customers/addresses/${id}` : '/api/customers/addresses';
+            fetch(url, {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(r => {
+                if (!r.ok) throw new Error();
+                showFeedback('Address saved!', true);
+                document.getElementById('addressModal').style.display = 'none';
+                loadAddresses();
+            })
+            .catch(() => showFeedback('Failed to save address.', false))
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = id ? 'Save Changes' : 'Add Address';
+            });
+        }
+    };
+    function loadAddresses() {
+        document.getElementById('addressesLoading').style.display = '';
+        document.getElementById('billingAddressesLoading').style.display = '';
+        fetch('/api/customers/addresses')
+            .then(r => r.json())
+            .then(addresses => {
+                setTimeout(() => { // for smooth transition
+                    document.getElementById('addressesLoading').style.display = 'none';
+                    document.getElementById('billingAddressesLoading').style.display = 'none';
+                    renderAddresses(addresses.filter(a => !a.label || a.label.toLowerCase() !== 'billing'), 'addressesList', false);
+                    renderAddresses(addresses.filter(a => a.label && a.label.toLowerCase() === 'billing'), 'billingAddressesList', true);
+                }, 350);
+            });
+    }
+
+    // --- Payment Tab Functionality ---
+    function renderPaymentMethodRow(pm) {
+        return `<div class="address-row" style="border:1px solid #e0e7ff;border-radius:8px;padding:1.2rem;margin-bottom:1.2rem;position:relative;background:#f8fafc;transition:all 0.2s;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                <div>
+                    <div style="font-weight:600;font-size:1.1em;color:#052964;">
+                        ${pm.type || ''} ${pm.provider ? '(' + pm.provider + ')' : ''} <span style="color:#888;font-size:0.9em;">${pm.maskedDetails || ''}</span> ${pm.isDefault ? '<span style="color:var(--accent-green);font-weight:600;font-size:0.9em;">Default</span>' : ''}
+                    </div>
+                    <div style="color:#2563eb;font-size:1em;">${pm.expiryMonth && pm.expiryYear ? 'Expires: ' + pm.expiryMonth + '/' + pm.expiryYear : ''}</div>
+                </div>
+                <div style="display:flex;gap:0.5em;">
+                    <button class="edit-payment-btn" data-id="${pm.id}" style="background:var(--accent-blue);color:#fff;border:none;border-radius:6px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Edit</button>
+                    <button class="delete-payment-btn" data-id="${pm.id}" style="background:var(--accent-red);color:#fff;border:none;border-radius:6px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Delete</button>
+                    ${!pm.isDefault ? `<button class="set-default-payment-btn" data-id="${pm.id}" style="background:var(--accent-green);color:#fff;border:none;border-radius:6px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Set as Default</button>` : ''}
+                </div>
+            </div>
+        </div>`;
+    }
+    function renderPaymentMethods(methods) {
+        const container = document.getElementById('paymentMethodsList');
+        if (!methods.length) {
+            container.innerHTML = `<div style="color:#888;font-size:1.05em;">No payment methods saved.</div>`;
+            return;
+        }
+        container.innerHTML = methods.map(pm => renderPaymentMethodRow(pm)).join('');
+    }
+    function paymentFormHtml(pm = {}) {
+        return `<form class="payment-form" data-id="${pm.id || ''}" style="background:#fff;padding:1.5rem;border-radius:10px;box-shadow:0 2px 8px #05296411;">
+            <h3 style="margin-top:0;color:#2563eb;">${pm.id ? 'Edit Payment Method' : 'Add New Payment Method'}</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 2rem;">
+                <div style="grid-column:1/3;">
+                    <label style="font-weight:600;color:#052964;">Type</label>
+                    <select name="type" required style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;">
+                        <option value="">Select Type</option>
+                        <option value="Visa" ${pm.type === 'Visa' ? 'selected' : ''}>Visa</option>
+                        <option value="Mastercard" ${pm.type === 'Mastercard' ? 'selected' : ''}>Mastercard</option>
+                        <option value="Mobile Money" ${pm.type === 'Mobile Money' ? 'selected' : ''}>Mobile Money</option>
+                        <option value="PayPal" ${pm.type === 'PayPal' ? 'selected' : ''}>PayPal</option>
+                    </select>
+                </div>
+                <div style="grid-column:1/3;">
+                    <label style="font-weight:600;color:#052964;">Provider</label>
+                    <input type="text" name="provider" value="${pm.provider || ''}" placeholder="e.g., MTN, Airtel, etc." style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div style="grid-column:1/3;">
+                    <label style="font-weight:600;color:#052964;">Masked Details</label>
+                    <input type="text" name="maskedDetails" value="${pm.maskedDetails || ''}" placeholder="**** **** **** 1234" required style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div>
+                    <label style="font-weight:600;color:#052964;">Expiry Month</label>
+                    <input type="number" name="expiryMonth" min="1" max="12" value="${pm.expiryMonth || ''}" style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div>
+                    <label style="font-weight:600;color:#052964;">Expiry Year</label>
+                    <input type="number" name="expiryYear" min="2024" max="2100" value="${pm.expiryYear || ''}" style="width:100%;padding:0.6rem 1rem;border-radius:8px;border:1px solid #e0e7ff;font-size:1.05em;" />
+                </div>
+                <div style="grid-column:1/3;">
+                    <label><input type="checkbox" name="isDefault" ${pm.isDefault ? 'checked' : ''} /> Set as default</label>
+                </div>
+            </div>
+            <div style="text-align:right;margin-top:2rem;">
+                <button type="submit" style="background:var(--accent-blue);color:var(--white);border:none;border-radius:8px;padding:0.7rem 2.2rem;font-weight:700;font-size:1.1em;cursor:pointer;box-shadow:0 2px 8px #2563eb11;">${pm.id ? 'Save Changes' : 'Add Payment Method'}</button>
+                <button type="button" class="cancel-payment-form-btn" style="margin-left:1em;background:#eee;color:#052964;border:none;border-radius:8px;padding:0.7rem 2.2rem;font-weight:700;font-size:1.1em;cursor:pointer;">Cancel</button>
+            </div>
+            <div style="margin-top:1.2rem;font-size:0.95em;color:#888;"><i class="fas fa-lock"></i> SSL Encrypted. Your payment details are securely stored.</div>
+        </form>`;
+    }
+    function showPaymentModal(pm = {}) {
+        document.getElementById('paymentModalBody').innerHTML = paymentFormHtml(pm);
+        document.getElementById('paymentModal').style.display = 'flex';
+    }
+    document.getElementById('addPaymentBtn').onclick = function() {
+        showPaymentModal();
+    };
+    document.getElementById('closePaymentModal').onclick = function() {
+        document.getElementById('paymentModal').style.display = 'none';
+    };
+    document.getElementById('paymentModal').onclick = function(e) {
+        if (e.target === this) this.style.display = 'none';
+    };
+    document.getElementById('paymentMethodsList').onclick = function(e) {
+        if (e.target.classList.contains('edit-payment-btn')) {
+            const id = e.target.dataset.id;
+            fetch('/api/customers/payment-methods')
+                .then(r => r.json())
+                .then(methods => {
+                    const pm = methods.find(m => m.id == id);
+                    showPaymentModal(pm);
+                });
+        } else if (e.target.classList.contains('delete-payment-btn')) {
+            const id = e.target.dataset.id;
+            if (confirm('Delete this payment method?')) {
+                fetch(`/api/customers/payment-methods/${id}`, { method: 'DELETE' })
+                    .then(() => {
+                        showPaymentFeedback('Payment method deleted successfully!', true);
+                        loadPaymentMethods();
+                    })
+                    .catch(() => showPaymentFeedback('Failed to delete payment method.', false));
+            }
+        } else if (e.target.classList.contains('set-default-payment-btn')) {
+            const id = e.target.dataset.id;
+            fetch(`/api/customers/payment-methods/${id}/default`, { method: 'POST' })
+                .then(() => {
+                    showPaymentFeedback('Default payment method updated!', true);
+                    loadPaymentMethods();
+                })
+                .catch(() => showPaymentFeedback('Failed to set default payment method.', false));
+        }
+    };
+    function showPaymentFeedback(msg, success) {
+        const el = document.getElementById('paymentFeedback');
+        el.textContent = msg;
+        el.style.background = success ? 'var(--accent-green)' : 'var(--accent-red)';
+        el.style.display = 'block';
+        setTimeout(() => { el.style.display = 'none'; }, 2500);
+    }
+    document.getElementById('paymentModalBody').onsubmit = function(e) {
+        if (e.target.classList.contains('payment-form')) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
+            const data = Object.fromEntries(new FormData(form).entries());
+            data.isDefault = !!form.querySelector('[name="isDefault"]').checked;
+            const id = form.getAttribute('data-id') || data.id;
+            const method = id ? 'PUT' : 'POST';
+            const url = id ? `/api/customers/payment-methods/${id}` : '/api/customers/payment-methods';
+            fetch(url, {
+                method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(r => {
+                if (!r.ok) throw new Error();
+                showPaymentFeedback('Payment method saved!', true);
+                document.getElementById('paymentModal').style.display = 'none';
+                loadPaymentMethods();
+            })
+            .catch(() => showPaymentFeedback('Failed to save payment method.', false))
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = id ? 'Save Changes' : 'Add Payment Method';
+            });
+        }
+    };
+    function loadPaymentMethods() {
+        const loading = document.getElementById('paymentMethodsLoading');
+        if (loading) loading.style.display = '';
+        fetch('/api/customers/payment-methods')
+            .then(r => r.json())
+            .then(methods => {
+                setTimeout(() => {
+                    if (loading) loading.style.display = 'none';
+                    renderPaymentMethods(methods);
+                }, 350);
+            });
+    }
+
+    // --- Notifications Tab Functionality ---
+    let allNotifications = [];
+    function renderNotificationRow(n) {
+        return `<div class="address-row notification-row ${n.read ? 'notification-read' : 'notification-unread'}" style="border:1px solid #e0e7ff;border-radius:8px;padding:1.2rem;margin-bottom:1.2rem;position:relative;background:${n.read ? '#f8fafc' : '#e0e7ff'};transition:all 0.2s;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+                <div style="flex:1;min-width:180px;">
+                    <div style="font-weight:600;font-size:1.1em;color:#052964;${n.read ? '' : 'font-weight:700;'}">${n.title || ''}</div>
+                    <div style="color:#2563eb;font-size:0.98em;margin:0.2em 0;">${n.type || ''} &middot; ${n.dateTime ? new Date(n.dateTime).toLocaleString() : ''}</div>
+                    <div style="color:#888;font-size:0.98em;">${n.message || ''}</div>
+                </div>
+                <div style="display:flex;gap:0.5em;align-items:center;">
+                    ${!n.read ? `<button class="mark-read-notification-btn" data-id="${n.id}" style="background:var(--accent-green);color:#fff;border:none;border-radius:6px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Mark as Read</button>` : ''}
+                    <button class="delete-notification-btn" data-id="${n.id}" style="background:var(--accent-red);color:#fff;border:none;border-radius:6px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;">Delete</button>
+                    ${n.link ? `<a href="${n.link}" style="background:var(--accent-blue);color:#fff;border:none;border-radius:6px;padding:0.4rem 1rem;font-weight:600;cursor:pointer;text-decoration:none;" target="_blank">View</a>` : ''}
+                </div>
+            </div>
+        </div>`;
+    }
+    function renderNotifications(notifications) {
+        const container = document.getElementById('notificationsList');
+        if (!notifications.length) {
+            container.innerHTML = `<div style="color:#888;font-size:1.05em;">No notifications found.</div>`;
+            return;
+        }
+        container.innerHTML = notifications.map(n => renderNotificationRow(n)).join('');
+    }
+    function loadNotifications() {
+        const loading = document.getElementById('notificationsLoading');
+        if (loading) loading.style.display = '';
+        fetch('/api/customers/notifications')
+            .then(r => r.json())
+            .then(notifications => {
+                allNotifications = notifications;
+                setTimeout(() => {
+                    if (loading) loading.style.display = 'none';
+                    applyNotificationFilters();
+                }, 350);
+            });
+    }
+    function applyNotificationFilters() {
+        const type = document.getElementById('notificationTypeFilter').value;
+        const search = document.getElementById('notificationSearch').value.toLowerCase();
+        let filtered = allNotifications;
+        if (type) filtered = filtered.filter(n => n.type === type);
+        if (search) filtered = filtered.filter(n => (n.title || '').toLowerCase().includes(search) || (n.message || '').toLowerCase().includes(search));
+        renderNotifications(filtered);
+    }
+    document.getElementById('notificationTypeFilter').onchange = applyNotificationFilters;
+    document.getElementById('notificationSearch').oninput = applyNotificationFilters;
+    document.getElementById('notificationsList').onclick = function(e) {
+        if (e.target.classList.contains('mark-read-notification-btn')) {
+            const id = e.target.dataset.id;
+            fetch(`/api/customers/notifications/${id}/read`, { method: 'PUT' })
+                .then(() => {
+                    showNotificationFeedback('Notification marked as read!', true);
+                    loadNotifications();
+                })
+                .catch(() => showNotificationFeedback('Failed to mark as read.', false));
+        } else if (e.target.classList.contains('delete-notification-btn')) {
+            const id = e.target.dataset.id;
+            if (confirm('Delete this notification?')) {
+                fetch(`/api/customers/notifications/${id}`, { method: 'DELETE' })
+                    .then(() => {
+                        showNotificationFeedback('Notification deleted!', true);
+                        loadNotifications();
+                    })
+                    .catch(() => showNotificationFeedback('Failed to delete notification.', false));
+            }
+        }
+    };
+    document.getElementById('markAllNotificationsReadBtn').onclick = function() {
+        fetch('/api/customers/notifications/markAllAsRead', { method: 'PUT' })
+            .then(() => {
+                showNotificationFeedback('All notifications marked as read!', true);
+                loadNotifications();
+            })
+            .catch(() => showNotificationFeedback('Failed to mark all as read.', false));
+    };
+    function showNotificationFeedback(msg, success) {
+        const el = document.getElementById('notificationFeedback');
+        el.textContent = msg;
+        el.style.background = success ? 'var(--accent-green)' : 'var(--accent-red)';
+        el.style.display = 'block';
+        setTimeout(() => { el.style.display = 'none'; }, 2500);
+    }
 });
 </script>
 </body>
