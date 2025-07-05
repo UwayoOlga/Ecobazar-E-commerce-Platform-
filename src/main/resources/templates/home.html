@@ -84,10 +84,6 @@
         </div>
         <nav>
             <a href="/home">Home</a>
-            <a href="/catalog">Catalog</a>
-            <a href="/uploadPrescription">Upload Prescription</a>
-            <a href="/trackOrder">Track Order</a>
-            <a href="/contact">Contact</a>
             <a href="/login" class="login-btn">Login/Register</a>
         </nav>
     </header>
@@ -97,7 +93,7 @@
         <div class="hero-content">
             <div class="hero-title">Get Your Trusted Medicines Delivered to Your Doorstep</div>
             <div class="hero-sub">Safe, fast, and easy access to your health essentials.</div>
-            <a href="/catalog" class="cta-btn">Shop Now</a>
+            <button id="shopNowBtn" class="cta-btn">Shop Now</button>
         </div>
         <div class="hero-img">
             <img src="/assets/images/Online stock.jpg" alt="Medicine Delivery" style="width:80%;height:80%;object-fit:contain;" />
@@ -194,6 +190,15 @@
                 slideshow.style.opacity = 1;
             }, 700); // matches the transition duration
         }, 2500);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var shopNowBtn = document.getElementById('shopNowBtn');
+            if (shopNowBtn) {
+                shopNowBtn.onclick = function() {
+                    window.location.href = '/login';
+                };
+            }
+        });
     </script>
 </body>
 </html> 

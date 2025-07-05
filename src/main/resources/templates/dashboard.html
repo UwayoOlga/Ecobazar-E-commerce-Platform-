@@ -341,6 +341,47 @@
             .main-content { padding: 0.7rem; }
             .topbar { padding: 0.7rem; }
         }
+        body.dark-mode {
+            background: #181c24 !important;
+            color: #e0e7ff !important;
+        }
+        body.dark-mode .main, body.dark-mode .summary-card, body.dark-mode .profile-card, body.dark-mode .order-table, body.dark-mode .tab-content, body.dark-mode .sidebar, body.dark-mode .sidebar-user-card {
+            background: #23283a !important;
+            color: #e0e7ff !important;
+        }
+        body.dark-mode .sidebar-link, body.dark-mode .sidebar-section-title {
+            color: #b3c6e0 !important;
+        }
+        body.dark-mode .sidebar-link.active, body.dark-mode .sidebar-link:hover {
+            background: #181c24 !important;
+            color: #fff !important;
+        }
+        body.dark-mode .summary-card, body.dark-mode .profile-card, body.dark-mode .order-table, body.dark-mode .tab-content {
+            box-shadow: 0 2px 16px #0002 !important;
+        }
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
+            background: #23283a !important;
+            color: #e0e7ff !important;
+            border-color: #444a5a !important;
+        }
+        body.dark-mode .order-table th {
+            background: #23283a !important;
+            color: #e0e7ff !important;
+        }
+        body.dark-mode .address-row, body.dark-mode .notification-row {
+            background: #23283a !important;
+            color: #e0e7ff !important;
+        }
+        body.dark-mode .sidebar-user-card {
+            background: #23283a !important;
+        }
+        body.dark-mode .topbar, body.dark-mode .main-content {
+            background: #181c24 !important;
+        }
+        body.dark-mode .logout-btn {
+            background: #ff5a5f !important;
+            color: #fff !important;
+        }
     </style>
 </head>
 <body>
@@ -371,15 +412,13 @@
         <div class="sidebar-section">
             <div class="sidebar-section-title">Notifications</div>
             <nav class="sidebar-nav">
-                <div class="sidebar-link"><i class="fas fa-bell"></i> Notifications</div>
-                <div class="sidebar-link"><i class="fas fa-envelope"></i> Messages</div>
+                <div class="sidebar-link" data-tab="notifications"><i class="fas fa-bell"></i> Alerts</div>
             </nav>
         </div>
-        <div class="sidebar-user-card">
+        <div class="sidebar-user-card" id="sidebarUserCard" style="cursor:pointer;">
             <div class="sidebar-user-avatar"><i class="fas fa-user"></i></div>
             <div>
-                <div class="sidebar-user-info" th:text="${userEmail}"></div>
-                <div class="sidebar-user-role">Customer</div>
+                <div class="sidebar-user-info" id="sidebarUserName"></div>
             </div>
         </div>
     </aside>
@@ -876,7 +915,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 tabNotifications.style.display = 'none';
                 dashboardSidebar.style.display = 'none';
                 loadPaymentMethods();
-            } else if (this.textContent.includes('Notifications')) {
+            } else if (this.textContent.includes('Notifications') || this.textContent.includes('Alerts')) {
                 tabDashboard.classList.remove('active');
                 tabDashboard.style.display = 'none';
                 tabPrescriptions.classList.remove('active');
@@ -1694,6 +1733,91 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.display = 'block';
         setTimeout(() => { el.style.display = 'none'; }, 2500);
     }
+
+    // Move up the user card and make it clickable to open Profile tab
+    function setSidebarUserName() {
+        fetch('/api/customers/me')
+            .then(r => r.json())
+            .then(data => {
+                if (!data) return;
+                document.getElementById('sidebarUserName').textContent = (data.firstName || '') + ' ' + (data.lastName || '');
+            });
+    }
+    setSidebarUserName();
+    document.getElementById('sidebarUserCard').onclick = function() {
+        // Simulate clicking the Profile tab
+        document.querySelector('[data-tab="profile"]').click();
+    };
+
+    // --- Dark Mode Toggle ---
+    let darkMode = false;
+    const darkModeBtn = document.querySelector('.topbar-action-btn i.fas.fa-moon').parentElement;
+    darkModeBtn.onclick = function() {
+        darkMode = !darkMode;
+        document.body.classList.toggle('dark-mode', darkMode);
+        // Optionally, persist mode in localStorage
+        if (darkMode) {
+            localStorage.setItem('dashboardDarkMode', '1');
+        } else {
+            localStorage.removeItem('dashboardDarkMode');
+        }
+    };
+    // On load, restore dark mode if set
+    if (localStorage.getItem('dashboardDarkMode')) {
+        darkMode = true;
+        document.body.classList.add('dark-mode');
+    }
+    // Add dark mode CSS
+    const darkModeStyle = document.createElement('style');
+    darkModeStyle.textContent = `
+        body.dark-mode {
+            background: #181c24 !important;
+            color: #e0e7ff !important;
+        }
+        body.dark-mode .main, body.dark-mode .summary-card, body.dark-mode .profile-card, body.dark-mode .order-table, body.dark-mode .tab-content, body.dark-mode .sidebar, body.dark-mode .sidebar-user-card {
+            background: #23283a !important;
+            color: #e0e7ff !important;
+        }
+        body.dark-mode .sidebar-link, body.dark-mode .sidebar-section-title {
+            color: #b3c6e0 !important;
+        }
+        body.dark-mode .sidebar-link.active, body.dark-mode .sidebar-link:hover {
+            background: #181c24 !important;
+            color: #fff !important;
+        }
+        body.dark-mode .summary-card, body.dark-mode .profile-card, body.dark-mode .order-table, body.dark-mode .tab-content {
+            box-shadow: 0 2px 16px #0002 !important;
+        }
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea {
+            background: #23283a !important;
+            color: #e0e7ff !important;
+            border-color: #444a5a !important;
+        }
+        body.dark-mode .order-table th {
+            background: #23283a !important;
+            color: #e0e7ff !important;
+        }
+        body.dark-mode .address-row, body.dark-mode .notification-row {
+            background: #23283a !important;
+            color: #e0e7ff !important;
+        }
+        body.dark-mode .sidebar-user-card {
+            background: #23283a !important;
+        }
+        body.dark-mode .topbar, body.dark-mode .main-content {
+            background: #181c24 !important;
+        }
+        body.dark-mode .logout-btn {
+            background: #ff5a5f !important;
+            color: #fff !important;
+        }
+    `;
+    document.head.appendChild(darkModeStyle);
+
+    // --- Topbar Bell Icon Opens Alerts/Notifications Tab ---
+    document.querySelector('.topbar-action-btn i.fas.fa-bell').parentElement.onclick = function() {
+        document.querySelector('.sidebar-link[data-tab="notifications"]').click();
+    };
 });
 </script>
 </body>
